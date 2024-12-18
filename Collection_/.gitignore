@@ -1,0 +1,35 @@
+# Ignorer les fichiers de configuration sensibles
+Config.swift
+.env
+
+# Ignorer les fichiers de build Xcode
+build/
+DerivedData/
+xcuserdata/
+
+# Ignorer les fichiers de dépendances CocoaPods
+Pods/
+Podfile.lock
+
+# Ignorer les fichiers de dépendances Swift Package Manager
+.build/
+Package.resolved
+
+# Ignorer les fichiers de dépendances Carthage
+Carthage/
+
+# Ignorer les fichiers de log
+*.log
+
+# Ignorer les fichiers de sauvegarde
+*.bak
+*.tmp
+*.swp
+
+# Ignorer les fichiers de configuration spécifiques à l'utilisateur
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcshareddata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcshareddata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcshareddata/
