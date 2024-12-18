@@ -11,31 +11,31 @@ struct Menu: View {
     @State var selectedTab = 0
     
     var body: some View {
-        HStack{
             TabView (selection: $selectedTab) {
                 
-                MyCollections()
+                NavigationView {
+                    ContentView()
+                }
                     .tabItem {
                         Image(systemName: "list.bullet.rectangle.fill")
-                        Text("My collections")
+                        Text("Mes collections")
                     }
                     .tag(0)
                 
                 AddCollection()
                     .tabItem {
                         Image(systemName: "rectangle.stack.fill.badge.plus")
-                        Text("Add a collection")
+                        Text("Ajouter une collection")
                     }
                     .tag(1)
                 
                 AddItem()
                     .tabItem {
                         Image(systemName: "rectangle.fill.badge.plus")
-                        Text("Add an item")
+                        Text("Ajouter un item")
                     }
                     .tag(2)
             }
-        }
     }
 }
 #Preview {
