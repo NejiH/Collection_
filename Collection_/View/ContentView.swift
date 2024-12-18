@@ -24,11 +24,11 @@ struct ContentView: View {
     
     @State var collections: [VinylCollection] = [
         .init(vinyls: .mock, name: "Super Collection", color: .red),
-        .init(vinyls: .mock, name: "Super Pouet", color: .blue)
+        .init(vinyls: .mock, name: "Mega Collection", color: .blue)
     ]
     
     var body: some View {
-        ForEach(collections, id: \.name) { oneCollection in
+        List(collections, id: \.name) { oneCollection in
             MyCollections(collection: oneCollection)
         }
     }

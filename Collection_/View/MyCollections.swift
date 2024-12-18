@@ -13,7 +13,7 @@ struct MyCollections: View {
     
     var body: some View {
         
-        VStack {
+        HStack {
             if let firstVinyl = collection.vinyls.first {
                 NavigationLink(destination: MyItems()) {
                     AsyncImage(url: URL(string: firstVinyl.cover_image_url)) { image in
@@ -25,14 +25,15 @@ struct MyCollections: View {
                     } placeholder: {
                         ProgressView()
                     }
+                    Text(collection.name)
+                        .font(.headline)
                 }
-                Text(collection.name)
-                    .font(.headline)
+                
             }
         }
         .navigationTitle(collection.name)
     }
 }
 #Preview {
-    MyCollections(collection: .init(vinyls: .mock, name: "Mes vinyls", color: .red))
+    ContentView()
 }
