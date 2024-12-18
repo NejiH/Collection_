@@ -6,24 +6,6 @@
 //
 import SwiftUI
 
-struct MyCollectionsView: View {
-    var body: some View {
-        MyCollections()
-    }
-}
-
-struct AddCollectionView: View {
-    var body: some View {
-        AddCollection()
-    }
-}
-
-struct AddItemView: View {
-    var body: some View {
-        AddItem()
-    }
-}
-
 struct Menu: View {
     
     @State var selectedTab = 0
@@ -32,21 +14,21 @@ struct Menu: View {
         HStack{
             TabView (selection: $selectedTab) {
                 
-                MyCollectionsView()
+                MyCollections()
                     .tabItem {
                         Image(systemName: "list.bullet.rectangle.fill")
                         Text("My collections")
                     }
                     .tag(0)
                 
-                AddCollectionView()
+                AddCollection()
                     .tabItem {
                         Image(systemName: "rectangle.stack.fill.badge.plus")
                         Text("Add a collection")
                     }
                     .tag(1)
                 
-                AddItemView()
+                AddItem()
                     .tabItem {
                         Image(systemName: "rectangle.fill.badge.plus")
                         Text("Add an item")

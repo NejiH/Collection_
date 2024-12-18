@@ -38,6 +38,7 @@ struct MyCollections: View {
               }
           }
       }
+      
     .task {
           do {
               vinyls = try await supabase.database.from("vinyls").select().execute().value
