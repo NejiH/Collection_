@@ -23,16 +23,30 @@ import SwiftUI
 struct ContentView: View {
     
     @State var collections: [VinylCollection] = [
-        .init(vinyls: .mock, name: "Super Collection", color: .red),
-        .init(vinyls: .mock, name: "Mega Collection", color: .blue)
+        .init(vinyls: .mock, name: "Mega Collection", color: .red),
+        .init(vinyls: .mock, name: "Super Collection", color: .blue),
+        .init(vinyls: .mock, name: "Left Collection", color: .red),
+        
     ]
     
+    let columns = [
+           GridItem(.flexible()),
+           GridItem(.flexible())
+       ]
+    
     var body: some View {
-        List(collections, id: \.name) { oneCollection in
-            MyCollections(collection: oneCollection)
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 10) {
+                    ForEach(collections, id: \.name) { oneCollection in
+                        MyCollections(collection: oneCollection)
+                    }
+                }
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            }
         }
     }
-}
+
 
 #Preview {
     ContentView()

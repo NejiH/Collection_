@@ -30,6 +30,8 @@ struct MyItems: View {
                             }
                             Text(vinyl.title)
                                 .font(.headline)
+                                .foregroundStyle(.black)
+                                .lineLimit(1)
                         }
                     }
                 }

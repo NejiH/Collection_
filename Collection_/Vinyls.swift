@@ -15,7 +15,7 @@ struct Vinyls: Decodable, Identifiable {
     let genre_id: Int
     let created_at: Date
     let cover_image_url: String
-    
+
     init(id: Int, title: String, release_date: Date, artist_id: Int, genre_id: Int, created_at: Date, cover_image_url: String) {
         self.id = id
         self.title = title
@@ -25,5 +25,36 @@ struct Vinyls: Decodable, Identifiable {
         self.created_at = created_at
         self.cover_image_url = cover_image_url
     }
+}
+
+struct Genre: Identifiable {
+    let id: Int
+    let name: String
     
+    init(id: Int, name: String) {
+        self.id = id
+        self.name = name
+    }
+}
+
+struct Artist: Identifiable {
+    let id: Int
+    let name: String
+    let genre_id: Int
+    
+    init(id: Int, name: String, genre_id: Int) {
+        self.id = id
+        self.name = name
+        self.genre_id = genre_id
+    }
+}
+
+struct VinylsArtists {
+    let vinyl_id: Int
+    let artist_id: Int
+    
+    init(vinyl_id: Int, artist_id: Int) {
+        self.vinyl_id = vinyl_id
+        self.artist_id = artist_id
+    }
 }
