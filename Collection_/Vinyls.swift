@@ -27,7 +27,7 @@ struct Vinyls: Decodable, Identifiable {
     }
 }
 
-struct Genre: Identifiable {
+struct Genre: Identifiable, Hashable {
     let id: Int
     let name: String
     

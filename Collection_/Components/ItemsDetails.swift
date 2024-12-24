@@ -18,44 +18,56 @@ struct ItemsDetails: View {
     ]
     
     var body: some View {
-            LazyVGrid(columns: columns, spacing: 10) {
-                VStack(alignment: .leading) {
-                    AsyncImage(url: URL(string: vinyl.cover_image_url)) { image in
-                        image
-                            .resizable()
-                            .frame(width: 300, height: 300)
-                            .cornerRadius(10)
-                            .padding(0)
-                    } placeholder: {
-                        ProgressView()
-                    }
+        LazyVGrid(columns: columns, spacing: 10) {
+            VStack(alignment: .leading) {
+                AsyncImage(url: URL(string: vinyl.cover_image_url)) { image in
+                    image
+                        .resizable()
+                        .frame(width: 300, height: 300)
+                        .cornerRadius(10)
+                        .padding(0)
+                    
+                    
+                } placeholder: {
+                    ProgressView()
+                }
                 Divider()
                 Text(vinyl.title)
                     .font(.system(size: 40, weight: .bold))
                     .minimumScaleFactor(0.2)
                     .lineLimit(1)
                     .padding(1)
-                if let artist = artist.first (where: { $0.id == vinyl.artist_id }) {
-                    Text(artist.name)
-                        .font(.system(size: 30, weight: .medium))
-                        .padding(1)
-                 }
-                Text("Sortie : ")
-                    .font(.system(size: 20, weight: .bold)) +
-                Text(vinyl.release_date.formattedDate())
-                    .font(.system(size: 20, weight: .light))
-                if let genre = genre.first (where: {$0.id == vinyl.genre_id}) {
-                    Text(genre.name)
-                        .font(.system(size: 20, weight: .medium))
-                        .padding(1)
-                }
                 
+                
+                NavigationLink(destination: ArtistsDetails(artistId: vinyl.artist_id)) {
+                    if let artist = artist.first(where: { $0.id == vinyl.artist_id }) {
+                        Text(artist.name)
+                            .font(.system(size: 30, weight: .medium))
+                            .padding(1)
+                            .foregroundStyle(.black)
+                    }
+                    
+                }
+                (Text("Sortie : ")
+                    .font(.system(size: 20, weight: .bold)) +
+                 Text(vinyl.release_date.formattedDate())
+                    .font(.system(size: 20, weight: .light))
+                )
+                
+                NavigationLink(destination: GenresDetails(genreId: vinyl.genre_id)) {
+                    if let genre = genre.first (where: {$0.id == vinyl.genre_id}) {
+                        Text(genre.name)
+                            .font(.system(size: 20, weight: .medium))
+                            .padding(1)
+                            .foregroundStyle(.black)
+                    }
+                }
             }
-            }
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-       }
-   }
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    }
+}
 
 #Preview {
     ItemsDetails(vinyl: .mock)

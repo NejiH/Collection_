@@ -16,42 +16,45 @@ struct MyItems: View {
     ]
     
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: columns, spacing: 10) {
-                ForEach(vinyls) { vinyl in
-                    NavigationLink(destination: ItemsDetails(vinyl: vinyl)) {
-                        VStack {
-                            AsyncImage(url: URL(string: vinyl.cover_image_url)) {image in
-                                image.resizable()
-                                    .frame(width:100, height:100)
-                                    .cornerRadius(10)
-                            } placeholder: {
-                                ProgressView()
+       
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 10) {
+                    ForEach(vinyls) { vinyl in
+                        NavigationLink(destination: ItemsDetails(vinyl: vinyl)) {
+                            VStack {
+                                AsyncImage(url: URL(string: vinyl.cover_image_url)) {image in
+                                    image.resizable()
+                                        .frame(width:100, height:100)
+                                        .cornerRadius(10)
+
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                Text(vinyl.title)
+                                    .font(.headline)
+                                    .foregroundStyle(.black)
+                                    .lineLimit(1)
+
                             }
-                            Text(vinyl.title)
-                                .font(.headline)
-                                .foregroundStyle(.black)
-                                .lineLimit(1)
                         }
                     }
                 }
             }
-        }
-        .padding()
-        .overlay {
-            if vinyls.isEmpty {
-                ProgressView()
+            .padding()
+            .overlay {
+                if vinyls.isEmpty {
+                    ProgressView()
+                }
             }
-        }
-        
-        
-        .task {
-            do {
-                vinyls = try await supabase.database.from("vinyls").select().execute().value
-            } catch {
-                print(error)
+            
+            
+            .task {
+                do {
+                    vinyls = try await supabase.database.from("vinyls").select().execute().value
+                } catch {
+                    print(error)
+                }
             }
-        }
     }
 }
 

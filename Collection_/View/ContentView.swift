@@ -30,22 +30,23 @@ struct ContentView: View {
     ]
     
     let columns = [
-           GridItem(.flexible()),
-           GridItem(.flexible())
-       ]
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     
     var body: some View {
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 10) {
-                    ForEach(collections, id: \.name) { oneCollection in
-                        MyCollections(collection: oneCollection)
-                    }
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 10) {
+                ForEach(collections, id: \.name) { oneCollection in
+                    MyCollections(collection: oneCollection)
                 }
-                .padding()
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             }
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
     }
+    
+}
 
 
 #Preview {
