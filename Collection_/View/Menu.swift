@@ -9,9 +9,9 @@ import SwiftUI
 struct Menu: View {
     
   @State var collections: [VinylCollection] = [
-      .init(vinyls: .mock, name: "Mega Collection", color: .red),
-      .init(vinyls: .mock, name: "Super Collection", color: .blue),
-      .init(vinyls: .mock, name: "Left Collection", color: .red),
+      .init(vinyls: .mock1, name: "Mega Collection", color: .red),
+      .init(vinyls: .mock2, name: "Super Collection", color: .blue),
+      .init(vinyls: .mock3, name: "Left Collection", color: .red),
       
   ]
   

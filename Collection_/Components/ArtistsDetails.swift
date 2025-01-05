@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ArtistsDetails: View {
-    var vinyls = [Vinyls].mock
+    var vinyls = [Vinyls].mock3
     
     let artistId: Int
     

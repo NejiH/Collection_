@@ -14,7 +14,7 @@ struct MyCollections: View {
     var body: some View {
         HStack {
             if let firstVinyl = collection.vinyls.first {
-                NavigationLink(destination: MyItems()) {
+                NavigationLink(destination: MyItems(vinyls: collection.vinyls)) {
                     VStack {
                         AsyncImage(url: URL(string: firstVinyl.cover_image_url)) { image in
                             image
@@ -38,6 +38,6 @@ struct MyCollections: View {
     }
 }
 #Preview {
-    MyCollections(collection: VinylCollection(vinyls: .mock, name: "Coucou", color: .red));
-    MyCollections(collection: VinylCollection(vinyls: .mock, name: "Pouet", color: .blue))
+    MyCollections(collection: VinylCollection(vinyls: .mock1, name: "Coucou", color: .red));
+    MyCollections(collection: VinylCollection(vinyls: .mock2, name: "Pouet", color: .blue))
 }

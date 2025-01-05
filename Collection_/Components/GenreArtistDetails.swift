@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GenreArtistDetails: View {
     
-    var vinyl = [Vinyls].mock
+    var vinyl = [Vinyls].mock1
     
     let genreId: Int
     

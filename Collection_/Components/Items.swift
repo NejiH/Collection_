@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyItems: View {
-    @State var vinyls: [Vinyls] = .mock
+    @State var vinyls: [Vinyls]
     
     let columns = [
         GridItem(.flexible()),
@@ -48,6 +48,15 @@ struct MyItems: View {
                     ProgressView()
                 }
             }
+            .navigationTitle("Mes Items")
+            .toolbar {
+                ToolbarItem {
+                    NavigationLink (destination: EditItem(item: Vinyls)) {
+                            Text("Add")
+                        }
+                    }
+                }
+            }
             
             
 //            .task {
@@ -62,6 +71,6 @@ struct MyItems: View {
 
 #Preview {
     NavigationView {
-        MyItems()
+        MyItems(vinyls: .mock3)
     }
 }

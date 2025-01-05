@@ -10,6 +10,12 @@ import SwiftUI
 struct EditItem: View {
     
     @State var item: Vinyls
+    var allItems: Binding<[Vinyls]>
+    
+    init(allItems: Binding<[Vinyls]>) {
+        self.allItems = $allItems.append()
+        self.item = State(initialValue: Vinyls(id: 55))
+    }
     
     
     var body: some View {
@@ -26,15 +32,23 @@ struct EditItem: View {
                     Text("Created at")
                 }
                 
-                Picker("Artist", selection: $item.artist_id) {
-                    ForEach([Artist].mock) {
-                        Text($0.name)
+                HStack {
+                    Text("Artist")
+                    Spacer()
+                    Picker("Artist", selection: $item.artist_id) {
+                        ForEach([Artist].mock) {
+                            Text($0.name)
+                        }
                     }
                 }
                 
-                Picker("Genre", selection: $item.genre_id) {
-                    ForEach([Genre].mock) {
-                        Text($0.name)
+                HStack {
+                    Text("Genre")
+                    Spacer()
+                    Picker("Genre", selection: $item.genre_id) {
+                        ForEach([Genre].mock) {
+                            Text($0.name)
+                        }
                     }
                 }
                 
@@ -44,10 +58,13 @@ struct EditItem: View {
                 
                 AsyncImage(url: URL(string: item.cover_image_url)) { image in
                     image
-                    //                        .frame(width: 50, height: 50)
+                        .resizable()
+                        .frame(width: 300, height: 300)
+                    
                 } placeholder: {
                     ProgressView()
-                 }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                 }
+                
                 
             }
             .padding()
