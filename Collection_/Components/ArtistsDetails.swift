@@ -30,12 +30,12 @@ struct ArtistsDetails: View {
                         AsyncImage(url: URL(string: vinyl.cover_image_url)) { image in
                             image
                                 .resizable()
-                                .frame(width: 100, height: 100)
-                                .cornerRadius(10)
                         } placeholder: {
                             ProgressView()
                         }
-                        
+                        .frame(width: 100, height: 100)
+                        .cornerRadius(10)
+
                         Text(vinyl.title)
                             .font(.title2)
                             .fontWeight(.heavy)
@@ -45,7 +45,7 @@ struct ArtistsDetails: View {
                         Spacer()
                     }
                     .padding()
-                    .background(Color.init(UIColor.lightGray))
+                    .background(Color.tileBackground)
                     .cornerRadius(10)
                 }
             }

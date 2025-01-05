@@ -22,12 +22,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var collections: [VinylCollection] = [
-        .init(vinyls: .mock, name: "Mega Collection", color: .red),
-        .init(vinyls: .mock, name: "Super Collection", color: .blue),
-        .init(vinyls: .mock, name: "Left Collection", color: .red),
-        
-    ]
+    @State var collections: [VinylCollection]
     
     let columns = [
         GridItem(.flexible()),
@@ -50,5 +45,9 @@ struct ContentView: View {
 
 
 #Preview {
-    ContentView()
+  ContentView(collections: [
+    .init(vinyls: .mock, name: "Mega Collection", color: .red),
+    .init(vinyls: .mock, name: "Super Collection", color: .blue),
+    .init(vinyls: .mock, name: "Left Collection", color: .red),
+])
 }

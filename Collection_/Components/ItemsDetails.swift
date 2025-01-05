@@ -23,15 +23,16 @@ struct ItemsDetails: View {
                 AsyncImage(url: URL(string: vinyl.cover_image_url)) { image in
                     image
                         .resizable()
-                        .frame(width: 300, height: 300)
-                        .cornerRadius(10)
-                        .padding(0)
                     
                     
                 } placeholder: {
                     ProgressView()
                 }
-                Divider()
+                .frame(width: 300, height: 300)
+                .background(Color.tileBackground)
+                .cornerRadius(10)
+
+              Divider()
                 Text(vinyl.title)
                     .font(.title)
                     //.font(.system(size: 40, weight: .bold))

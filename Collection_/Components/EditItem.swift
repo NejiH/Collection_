@@ -18,6 +18,7 @@ struct EditItem: View {
                 TextField("Title", text: $item.title)
                     .autocorrectionDisabled()
                     .textFieldStyle(.roundedBorder)
+              
                 DatePicker(selection: $item.release_date, in: ...Date.now, displayedComponents: .date) {
                     Text("Release date")
                 }
@@ -46,7 +47,7 @@ struct EditItem: View {
                     //                        .frame(width: 50, height: 50)
                 } placeholder: {
                     ProgressView()
-                }
+                 }.frame(maxWidth: .infinity, maxHeight: .infinity)
                 
             }
             .padding()

@@ -46,7 +46,7 @@ struct GenreArtistDetails: View {
                         Spacer()
                     }
                     .padding()
-                    .background(Color.init(UIColor.lightGray))
+                    .background(Color.tileBackground)
                     .cornerRadius(10)
                 }
             }

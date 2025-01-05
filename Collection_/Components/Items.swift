@@ -24,13 +24,15 @@ struct MyItems: View {
                             VStack {
                                 AsyncImage(url: URL(string: vinyl.cover_image_url)) {image in
                                     image.resizable()
-                                        .frame(width:100, height:100)
-                                        .cornerRadius(10)
 
                                 } placeholder: {
                                     ProgressView()
                                 }
-                                Text(vinyl.title)
+                                .frame(width:100, height:100)
+                                .background(Color.tileBackground)
+                                .cornerRadius(10)
+
+                              Text(vinyl.title)
                                     .font(.headline)
                                     .foregroundStyle(.black)
                                     .lineLimit(1)
@@ -48,13 +50,13 @@ struct MyItems: View {
             }
             
             
-            .task {
-                do {
-                    vinyls = try await supabase.database.from("vinyls").select().execute().value
-                } catch {
-                    print(error)
-                }
-            }
+//            .task {
+//                do {
+//                    vinyls = try await supabase.database.from("vinyls").select().execute().value
+//                } catch {
+//                    print(error)
+//                }
+//            }
     }
 }
 

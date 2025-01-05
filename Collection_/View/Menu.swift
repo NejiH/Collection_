@@ -8,6 +8,13 @@ import SwiftUI
 
 struct Menu: View {
     
+  @State var collections: [VinylCollection] = [
+      .init(vinyls: .mock, name: "Mega Collection", color: .red),
+      .init(vinyls: .mock, name: "Super Collection", color: .blue),
+      .init(vinyls: .mock, name: "Left Collection", color: .red),
+      
+  ]
+  
     @State var selectedTab = 0
     @State var item: Vinyls = Vinyls(id: 42)
     
@@ -15,7 +22,7 @@ struct Menu: View {
         TabView (selection: $selectedTab) {
             
             NavigationView {
-                ContentView()
+              ContentView(collections: collections)
             }
             .tabItem {
                 Image(systemName: "list.bullet.rectangle.fill")

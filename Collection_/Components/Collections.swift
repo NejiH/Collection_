@@ -19,14 +19,14 @@ struct MyCollections: View {
                         AsyncImage(url: URL(string: firstVinyl.cover_image_url)) { image in
                             image
                                 .resizable()
-                                .frame(width: 100, height: 100)
-                                .cornerRadius(10)
-                                .padding(0)
-
                         } placeholder: {
                             ProgressView()
                         }
-                        Text(collection.name)
+                        .frame(width: 100, height: 100)
+                        .background(Color.tileBackground)
+                        .cornerRadius(10)
+
+                      Text(collection.name)
                             .font(.headline)
                             .foregroundStyle(.black)
                             .lineLimit(1)
