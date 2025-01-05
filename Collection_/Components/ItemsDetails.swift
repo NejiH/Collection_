@@ -33,33 +33,33 @@ struct ItemsDetails: View {
                 }
                 Divider()
                 Text(vinyl.title)
-                    .font(.system(size: 40, weight: .bold))
-                    .minimumScaleFactor(0.2)
-                    .lineLimit(1)
+                    .font(.title)
+                    //.font(.system(size: 40, weight: .bold))
                     .padding(1)
                 
                 
                 NavigationLink(destination: ArtistsDetails(artistId: vinyl.artist_id)) {
                     if let artist = artist.first(where: { $0.id == vinyl.artist_id }) {
                         Text(artist.name)
-                            .font(.system(size: 30, weight: .medium))
+                            .font(.headline)
                             .padding(1)
-                            .foregroundStyle(.black)
                     }
                     
                 }
-                (Text("Sortie : ")
-                    .font(.system(size: 20, weight: .bold)) +
-                 Text(vinyl.release_date.formattedDate())
-                    .font(.system(size: 20, weight: .light))
-                )
+                
+                HStack {
+                    Text("Sortie :")
+                        .font(.headline)
+                     Text(vinyl.release_date.formattedDate())
+                        .font(.headline)
+                }
                 
                 NavigationLink(destination: GenresDetails(genreId: vinyl.genre_id)) {
                     if let genre = genre.first (where: {$0.id == vinyl.genre_id}) {
                         Text(genre.name)
-                            .font(.system(size: 20, weight: .medium))
+                            .font(.headline)
                             .padding(1)
-                            .foregroundStyle(.black)
+                            
                     }
                 }
             }
@@ -70,7 +70,9 @@ struct ItemsDetails: View {
 }
 
 #Preview {
-    ItemsDetails(vinyl: .mock)
+    NavigationView {
+        ItemsDetails(vinyl: .mock)
+    }
 }
 
 // Afficher la cover du vinyl en aut en centré

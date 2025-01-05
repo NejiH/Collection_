@@ -59,5 +59,7 @@ struct MyItems: View {
 }
 
 #Preview {
-    MyItems()
+    NavigationView {
+        MyItems()
+    }
 }

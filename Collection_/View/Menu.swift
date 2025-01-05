@@ -9,6 +9,7 @@ import SwiftUI
 struct Menu: View {
     
     @State var selectedTab = 0
+    @State var item: Vinyls = Vinyls(id: 42)
     
     var body: some View {
         TabView (selection: $selectedTab) {
@@ -29,12 +30,15 @@ struct Menu: View {
                 }
                 .tag(1)
             
-            AddItem()
-                .tabItem {
-                    Image(systemName: "rectangle.fill.badge.plus")
-                    Text("Ajouter un item")
-                }
-                .tag(2)
+            
+            NavigationView {
+                EditItem(item: item)
+            }
+            .tabItem {
+                Image(systemName: "rectangle.fill.badge.plus")
+                Text("Ajouter un item")
+            }
+            .tag(2)
         }
     }
 }

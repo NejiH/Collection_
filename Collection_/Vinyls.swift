@@ -7,14 +7,24 @@
 
 import Foundation
 
-struct Vinyls: Decodable, Identifiable {
+struct Vinyls: Codable, Identifiable {
     let id: Int
-    let title: String
-    let release_date: Date
-    let artist_id: Int
-    let genre_id: Int
-    let created_at: Date
-    let cover_image_url: String
+    var title: String
+    var release_date: Date
+    var artist_id: Int
+    var genre_id: Int
+    var created_at: Date
+    var cover_image_url: String
+    
+    init(id: Int){
+        self.id = id
+        self.title = ""
+        self.release_date = Date.now
+        self.artist_id = 1
+        self.genre_id = 1
+        self.created_at = Date.now
+        self.cover_image_url = "https://i.discogs.com/oHZNURChd9_A7sbgVwSTI674FryWSMh5kQrjkZoYMyE/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyNTE1/MzAyLTE3MzQxOTk4/OTAtOTMyNS5qcGVn.jpeg"
+    }
 
     init(id: Int, title: String, release_date: Date, artist_id: Int, genre_id: Int, created_at: Date, cover_image_url: String) {
         self.id = id
@@ -27,7 +37,7 @@ struct Vinyls: Decodable, Identifiable {
     }
 }
 
-struct Genre: Identifiable, Hashable {
+struct Genre: Codable, Identifiable {
     let id: Int
     let name: String
     
@@ -37,7 +47,7 @@ struct Genre: Identifiable, Hashable {
     }
 }
 
-struct Artist: Identifiable {
+struct Artist: Codable, Identifiable {
     let id: Int
     let name: String
     let genre_id: Int
