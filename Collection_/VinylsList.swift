@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct VinylCollection {
-    let vinyls: [Vinyls]
+struct VinylCollection: Identifiable {
+    let id: Int
+    var vinyls: [Vinyls]
     let name: String
     let color: Color
 }

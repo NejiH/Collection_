@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct MyItems: View {
-    @State var vinyls: [Vinyls]
+  
+  @State var collection: VinylCollection
     
     let columns = [
         GridItem(.flexible()),
@@ -19,7 +20,7 @@ struct MyItems: View {
        
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 10) {
-                    ForEach(vinyls) { vinyl in
+                  ForEach(collection.vinyls) { vinyl in
                         NavigationLink(destination: ItemsDetails(vinyl: vinyl)) {
                             VStack {
                                 AsyncImage(url: URL(string: vinyl.cover_image_url)) {image in
@@ -44,14 +45,14 @@ struct MyItems: View {
             }
             .padding()
             .overlay {
-                if vinyls.isEmpty {
+              if collection.vinyls.isEmpty {
                     ProgressView()
                 }
             }
             .navigationTitle("Mes Items")
             .toolbar {
                 ToolbarItem {
-                    NavigationLink (destination: EditItem(item: Vinyls)) {
+                  NavigationLink (destination: EditItem(collectionID: collection.id)) {
                             Text("Add")
                         }
                     }
@@ -66,11 +67,11 @@ struct MyItems: View {
 //                    print(error)
 //                }
 //            }
-    }
 }
 
 #Preview {
+  @Previewable @State var collection = VinylCollection(id: 1, vinyls: .mock1, name: "Mega Collection", color: .red)
     NavigationView {
-        MyItems(vinyls: .mock3)
+        MyItems(collection: collection)
     }
 }

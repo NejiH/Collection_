@@ -9,15 +9,16 @@ import SwiftUI
 
 struct EditItem: View {
     
-    @State var item: Vinyls
-    var allItems: Binding<[Vinyls]>
-    
-    init(allItems: Binding<[Vinyls]>) {
-        self.allItems = $allItems.append()
-        self.item = State(initialValue: Vinyls(id: 55))
-    }
-    
-    
+  @Environment(\.dismiss) var dismiss
+  
+  @State var item: Vinyls
+  let collectionID: Int
+  
+  init(collectionID: Int, item: Vinyls = Vinyls()) {
+    self.item = item
+    self.collectionID = collectionID
+  }
+  
     var body: some View {
         ScrollView {
             VStack (alignment: .leading) {
@@ -69,11 +70,31 @@ struct EditItem: View {
             }
             .padding()
         }
-        
-        
+        .toolbar {
+          ToolbarItem {
+            Button {
+              NotificationCenter.default
+                .post(
+                  name: .addOrEditItem,
+                  object: nil,
+                  userInfo: [
+                    "collectionID": collectionID,
+                    "item": item
+                  ]
+                )
+              dismiss()
+            } label: {
+              Text("Save")
+            }
+          }
+        }
     }
 }
 
-#Preview {
-    NavigationView{EditItem(item: .mock)}
+#Preview("Add") {
+  EditItem(collectionID: 42)
+}
+
+#Preview("Edit") {
+  EditItem(collectionID: 44, item: .mock)
 }

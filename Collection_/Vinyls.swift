@@ -8,7 +8,7 @@
 import Foundation
 
 struct Vinyls: Codable, Identifiable {
-    let id: Int
+    var id: Int
     var title: String
     var release_date: Date
     var artist_id: Int
@@ -16,7 +16,7 @@ struct Vinyls: Codable, Identifiable {
     var created_at: Date
     var cover_image_url: String
     
-    init(id: Int){
+    init(id: Int = -1){
         self.id = id
         self.title = ""
         self.release_date = Date.now

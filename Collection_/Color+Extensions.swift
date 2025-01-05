@@ -2,7 +2,7 @@
 //  Color+Extensions.swift
 //  Collection_
 //
-//  Created by Jeffrey MACKO on 05/01/2025.
+//  Created by Arnaud Hayon on 05/01/2025.
 //
 
 import SwiftUI
