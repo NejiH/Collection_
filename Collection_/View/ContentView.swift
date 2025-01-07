@@ -22,7 +22,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var collections: [VinylCollection]
+    @Binding var collections: [VinylCollection]
   
     let columns = [
         GridItem(.flexible()),
@@ -32,22 +32,21 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 10) {
-                ForEach(collections, id: \.name) { oneCollection in
+                ForEach($collections, id: \.name) { oneCollection in
                     MyCollections(collection: oneCollection)
                 }
             }
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            }
         }
     }
-    
-}
 
 
-#Preview {
-  ContentView(collections: [
-    .init(id: 1, vinyls: .mock1, name: "Mega Collection", color: .red),
-    .init(id: 2, vinyls: .mock2, name: "Super Collection", color: .blue),
-    .init(id: 3, vinyls: .mock3, name: "Left Collection", color: .red),
-])
-}
+//#Preview {
+//  ContentView(collections: [
+//    .init(id: 1, vinyls: .mock1, name: "Mega Collection", color: .red),
+//    .init(id: 2, vinyls: .mock2, name: "Super Collection", color: .blue),
+//    .init(id: 3, vinyls: .mock3, name: "Left Collection", color: .red),
+//])
+//}

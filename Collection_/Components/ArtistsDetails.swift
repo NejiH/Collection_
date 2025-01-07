@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ArtistsDetails: View {
-    var vinyls = [Vinyls].mock1 + [Vinyls].mock2 + [Vinyls].mock3
+    var vinyls = [Vinyls].mock
+    var artist = [Artist].mock
     
     let artistId: Int
     
@@ -22,35 +23,45 @@ struct ArtistsDetails: View {
         }
     }
     
+    var artistName: String {
+            if let currentArtist = artist.first(where: { $0.id == artistId }) {
+                return currentArtist.name
+            }
+            return "Artist"
+        }
+    
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: columns, spacing: 10) {
-                ForEach(filteredVinyls) { vinyl in
-                    HStack(alignment: .center, spacing: 10) {
-                        AsyncImage(url: URL(string: vinyl.cover_image_url)) { image in
-                            image
-                                .resizable()
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        .frame(width: 100, height: 100)
-                        .cornerRadius(10)
-
-                        Text(vinyl.title)
-                            .font(.title2)
-                            .fontWeight(.heavy)
-                            .foregroundStyle(.white)
-                            .lineLimit(1)
-                        
-                        Spacer()
-                    }
-                    .padding()
-                    .background(Color.tileBackground)
-                    .cornerRadius(10)
-                }
-            }
-            .padding()
+//            LazyVGrid(columns: columns, spacing: 10) {
+//                ForEach(filteredVinyls) { vinyl in
+//                    NavigationLink(destination: ItemsDetails(vinyl: vinyl)) {
+//                        HStack(alignment: .center, spacing: 10) {
+//                            AsyncImage(url: URL(string: vinyl.cover_image_url)) { image in
+//                                image
+//                                    .resizable()
+//                            } placeholder: {
+//                                ProgressView()
+//                            }
+//                            .frame(width: 100, height: 100)
+//                            .cornerRadius(10)
+//                            
+//                            Text(vinyl.title)
+//                                .font(.title2)
+//                                .fontWeight(.heavy)
+//                                .foregroundStyle(.white)
+//                                .lineLimit(1)
+//                            
+//                            Spacer()
+//                        }
+//                        .padding()
+//                        .background(Color.tileBackground)
+//                        .cornerRadius(10)
+//                    }
+//                }
+//            }
+//            .padding()
         }
+        .navigationTitle(artistName)
     }
 }
 

@@ -9,9 +9,10 @@ import SwiftUI
 struct Menu: View {
     
   @State var collections: [VinylCollection] = [
-    .init(id: 1, vinyls: .mock1, name: "Mega Collection", color: .red),
-    .init(id: 2, vinyls: .mock2, name: "Super Collection", color: .blue),
-    .init(id: 3, vinyls: .mock3, name: "Left Collection", color: .red),
+//    .init(id: 1, vinyls: [], name: "Pas de nom", color: .red)
+    .init(id: 1, vinyls: .mock, name: "Mega Collection", color: .red),
+    .init(id: 2, vinyls: .mock, name: "Super Collection", color: .blue),
+    .init(id: 3, vinyls: .mock, name: "Left Collection", color: .red),
   ]
   
     @State var selectedTab = 0
@@ -20,7 +21,7 @@ struct Menu: View {
         TabView (selection: $selectedTab) {
             
             NavigationView {
-              ContentView(collections: collections)
+              ContentView(collections: $collections)
             }
             .tabItem {
                 Image(systemName: "list.bullet.rectangle.fill")
@@ -44,29 +45,6 @@ struct Menu: View {
 //                Text("Ajouter un item")
 //            }
 //            .tag(2)
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .addOrEditItem)) { note in
-          guard
-            let collectionID = note.userInfo?["collectionID"] as? Int,
-            var item = note.userInfo?["item"] as? Vinyls
-          else { return }
-          var localCollection = collections.reduce(into: [Int: VinylCollection]()) { partialResult, vinylCollection in
-            partialResult[vinylCollection.id] = vinylCollection
-          }
-
-          // Si on n'a pas d'ID correct
-          if item.id == -1 {
-            var biggestID = -1
-            for element in localCollection[collectionID]?.vinyls ?? [] {
-              if element.id > biggestID {
-                biggestID = element.id
-              }
-            }
-            item.id = biggestID + 1
-          }
-          
-          localCollection[collectionID]?.vinyls.append(item)
-          collections = Array(localCollection.values)
         }
     }
 }

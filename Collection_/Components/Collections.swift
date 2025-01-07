@@ -9,12 +9,12 @@ import SwiftUI
 
 struct MyCollections: View {
     
-    @State var collection: VinylCollection
+    @Binding var collection: VinylCollection
     
     var body: some View {
         HStack {
             if let firstVinyl = collection.vinyls.first {
-                NavigationLink(destination: MyItems(collection: collection)) {
+                NavigationLink(destination: MyItems(collection: $collection)) {
                     VStack {
                         AsyncImage(url: URL(string: firstVinyl.cover_image_url)) { image in
                             image
@@ -37,21 +37,21 @@ struct MyCollections: View {
         .navigationTitle("Mes Collections")
     }
 }
-#Preview {
-  MyCollections(
-    collection: VinylCollection(
-      id: 43,
-      vinyls: .mock1,
-      name: "Coucou",
-      color: .red
-    )
-  );
-  MyCollections(
-    collection: VinylCollection(
-      id: 44,
-      vinyls: .mock2,
-      name: "Pouet",
-      color: .blue
-    )
-  )
-}
+//#Preview {
+//  MyCollections(
+//    collection: VinylCollection(
+//      id: 43,
+//      vinyls: .mock1,
+//      name: "Coucou",
+//      color: .red
+//    )
+//  );
+//  MyCollections(
+//    collection: VinylCollection(
+//      id: 44,
+//      vinyls: .mock2,
+//      name: "Pouet",
+//      color: .blue
+//    )
+//  )
+//}

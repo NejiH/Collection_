@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MyItems: View {
   
-  @State var collection: VinylCollection
+  @Binding var collection: VinylCollection
     
     let columns = [
         GridItem(.flexible()),
@@ -20,10 +20,10 @@ struct MyItems: View {
        
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 10) {
-                  ForEach(collection.vinyls) { vinyl in
-                        NavigationLink(destination: ItemsDetails(vinyl: vinyl)) {
+                  ForEach($collection.vinyls) { vinyl in
+                      NavigationLink(destination: ItemsDetails(vinyl: vinyl, collection: $collection)) {
                             VStack {
-                                AsyncImage(url: URL(string: vinyl.cover_image_url)) {image in
+                                AsyncImage(url: URL(string: vinyl.wrappedValue.cover_image_url)) {image in
                                     image.resizable()
 
                                 } placeholder: {
@@ -33,7 +33,7 @@ struct MyItems: View {
                                 .background(Color.tileBackground)
                                 .cornerRadius(10)
 
-                              Text(vinyl.title)
+                              Text(vinyl.wrappedValue.title)
                                     .font(.headline)
                                     .foregroundStyle(.black)
                                     .lineLimit(1)
@@ -52,7 +52,7 @@ struct MyItems: View {
             .navigationTitle("Mes Items")
             .toolbar {
                 ToolbarItem {
-                  NavigationLink (destination: EditItem(collectionID: collection.id)) {
+                    NavigationLink (destination: EditItem(collection: $collection)) {
                             Text("Add")
                         }
                     }
@@ -70,8 +70,8 @@ struct MyItems: View {
 }
 
 #Preview {
-  @Previewable @State var collection = VinylCollection(id: 1, vinyls: .mock1, name: "Mega Collection", color: .red)
+  @Previewable @State var collection = VinylCollection(id: 1, vinyls: .mock, name: "Mega Collection", color: .red)
     NavigationView {
-        MyItems(collection: collection)
+        MyItems(collection: $collection)
     }
 }

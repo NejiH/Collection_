@@ -9,9 +9,10 @@ import SwiftUI
 
 struct ItemsDetails: View {
     
-    @State var vinyl: Vinyls
+    @Binding var vinyl: Vinyls
     @State var artist = [Artist].mock
     @State var genre = [Genre].mock
+    @Binding var collection: VinylCollection
     
     let columns = [
         GridItem(.fixed(300))
@@ -67,14 +68,22 @@ struct ItemsDetails: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .navigationTitle(vinyl.title)
+        .toolbar {
+            ToolbarItem {
+                NavigationLink (destination: EditItem(vinylID: vinyl.id, collection: $collection)) {
+                        Text("Edit")
+                    }
+                }
+            }
     }
 }
 
-#Preview {
-    NavigationView {
-        ItemsDetails(vinyl: .mock)
-    }
-}
+//#Preview {
+//    NavigationView {
+//        ItemsDetails(vinyl: .mock)
+//    }
+//}
 
 // Afficher la cover du vinyl en aut en centré
 // En dessous :
