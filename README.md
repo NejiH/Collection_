@@ -26,19 +26,19 @@ Collection is an iOS application designed to help you manage and organize your v
 ### Screenshots
 
 Homepage
-![Homepage / collection](./Collection_/Collection_/Assets.xcassets/collection-home.png)
+![Homepage / collection](.Collection_/Assets.xcassets/collection-addItem.imageset/collection-home.png)
 
 List of items
-![List of items](./Collection_/Collection_/Assets.xcassets/collection-listOfItems.png)
+![List of items](.Collection_/Assets.xcassets/collection-addItem.imageset/collection-listOfItems.png)
 
 Item
-![Item](./Collection_/Collection_/Assets.xcassets/collection-item.png
+![Item](.Collection_/Assets.xcassets/collection-addItem.imageset/collection-item.png
 
 Edit item
-![Edit item](./Collection_/Collection_/Assets.xcassets/collection-editItem.png)
+![Edit item](.Collection_/Assets.xcassets/collection-addItem.imageset/collection-editItem.png)
 
 Add item
-![Add item](./Collection_/Collection_/Assets.xcassets/collection-addItem.png)
+![Add item](.Collection_/Assets.xcassets/collection-addItem.imageset/collection-addItem.png)
 
 ### Links
 
