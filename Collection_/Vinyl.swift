@@ -1,5 +1,5 @@
 //
-//  Vinyls.swift
+//  Vinyl.swift
 //  Collection_
 //
 //  Created by Arnaud Hayon on 17/12/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Vinyls: Codable, Identifiable {
+struct Vinyl: Codable, Identifiable {
     var id: Int
     var title: String
     var release_date: Date
@@ -59,7 +59,7 @@ struct Artist: Codable, Identifiable {
     }
 }
 
-struct VinylsArtists {
+struct VinylArtist {
     let vinyl_id: Int
     let artist_id: Int
     

@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct ItemsDetails: View {
+struct VinylDetails: View {
     
-    @Binding var vinyl: Vinyls
+    @Binding var vinyl: Vinyl
     @State var artist = [Artist].mock
     @State var genre = [Genre].mock
-    @Binding var collection: VinylCollection
+    @Binding var collection: ItemCollection
     
     let columns = [
         GridItem(.fixed(300))
@@ -71,7 +71,7 @@ struct ItemsDetails: View {
         .navigationTitle(vinyl.title)
         .toolbar {
             ToolbarItem {
-                NavigationLink (destination: EditItem(vinylID: vinyl.id, collection: $collection)) {
+                NavigationLink (destination: EditVinyl(vinylID: vinyl.id, collection: $collection)) {
                         Text("Edit")
                     }
                 }
@@ -81,7 +81,7 @@ struct ItemsDetails: View {
 
 //#Preview {
 //    NavigationView {
-//        ItemsDetails(vinyl: .mock)
+//        VinylDetails(vinyl: .mock)
 //    }
 //}
 

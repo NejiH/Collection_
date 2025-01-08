@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GenresDetails: View {
     
-    let vinyls = [Vinyls].mock
+    let vinyls = [Vinyl].mock
     let genre = [Genre].mock
     
     let genreId: Int
@@ -18,7 +18,7 @@ struct GenresDetails: View {
         GridItem(.flexible(), alignment: .leading)
     ]
     
-    var filteredVinyls: [Vinyls] {
+    var filteredVinyls: [Vinyl] {
         vinyls.filter { vinyl in
             vinyl.genre_id == genreId
         }
@@ -35,7 +35,7 @@ struct GenresDetails: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 10) {
 //                ForEach(filteredVinyls) { vinyl in
-//                    NavigationLink(destination: ItemsDetails(vinyl: $vinyl)) {
+//                    NavigationLink(destination: VinylDetails(vinyl: $vinyl)) {
 //                        HStack(alignment: .center, spacing: 10) {
 //                            AsyncImage(url: URL(string: vinyl.cover_image_url)) { image in
 //                                image

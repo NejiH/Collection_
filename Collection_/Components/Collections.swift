@@ -1,5 +1,5 @@
 //
-//  MyItems.swift
+//  VinylList.swift
 //  Collection_
 //
 //  Created by Arnaud Hayon on 18/12/2024.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct MyCollections: View {
+struct Collections: View {
     
-    @Binding var collection: VinylCollection
+    @Binding var collection: ItemCollection
     
     var body: some View {
         HStack {
             if let firstVinyl = collection.vinyls.first {
-                NavigationLink(destination: MyItems(collection: $collection)) {
+                NavigationLink(destination: VinylList(collection: $collection)) {
                     VStack {
                         AsyncImage(url: URL(string: firstVinyl.cover_image_url)) { image in
                             image
@@ -38,16 +38,16 @@ struct MyCollections: View {
     }
 }
 //#Preview {
-//  MyCollections(
-//    collection: VinylCollection(
+//  Collections(
+//    collection: ItemCollection(
 //      id: 43,
 //      vinyls: .mock1,
 //      name: "Coucou",
 //      color: .red
 //    )
 //  );
-//  MyCollections(
-//    collection: VinylCollection(
+//  Collections(
+//    collection: ItemCollection(
 //      id: 44,
 //      vinyls: .mock2,
 //      name: "Pouet",

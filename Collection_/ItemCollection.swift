@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct VinylCollection: Identifiable {
+struct ItemCollection: Identifiable {
     let id: Int
-    var vinyls: [Vinyls]
-    var vinylsData: [Vinyls.ID: Vinyls] {
+    var vinyls: [Vinyl]
+    var vinylsData: [Vinyl.ID: Vinyl] {
         didSet {
             vinyls = Array(vinylsData.values)
         }
@@ -18,7 +18,7 @@ struct VinylCollection: Identifiable {
     let name: String
     let color: Color
     
-    init(id: Int, vinyls: [Vinyls], name: String, color: Color) {
+    init(id: Int, vinyls: [Vinyl], name: String, color: Color) {
         self.id = id
         self.vinylsData = Dictionary(flatGrouping: vinyls, by: \.id)
         self.vinyls = vinyls

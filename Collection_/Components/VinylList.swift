@@ -1,5 +1,5 @@
 //
-//  MyCollections.swift
+//  Collections.swift
 //  Collection_
 //
 //  Created by Arnaud Hayon on 17/12/2024.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct MyItems: View {
+struct VinylList: View {
   
-  @Binding var collection: VinylCollection
+  @Binding var collection: ItemCollection
     
     let columns = [
         GridItem(.flexible()),
@@ -21,7 +21,7 @@ struct MyItems: View {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 10) {
                   ForEach($collection.vinyls) { vinyl in
-                      NavigationLink(destination: ItemsDetails(vinyl: vinyl, collection: $collection)) {
+                      NavigationLink(destination: VinylDetails(vinyl: vinyl, collection: $collection)) {
                             VStack {
                                 AsyncImage(url: URL(string: vinyl.wrappedValue.cover_image_url)) {image in
                                     image.resizable()
@@ -52,7 +52,7 @@ struct MyItems: View {
             .navigationTitle("Mes Items")
             .toolbar {
                 ToolbarItem {
-                    NavigationLink (destination: EditItem(collection: $collection)) {
+                    NavigationLink (destination: EditVinyl(collection: $collection)) {
                             Text("Add")
                         }
                     }
@@ -70,8 +70,8 @@ struct MyItems: View {
 }
 
 #Preview {
-  @Previewable @State var collection = VinylCollection(id: 1, vinyls: .mock, name: "Mega Collection", color: .red)
+  @Previewable @State var collection = ItemCollection(id: 1, vinyls: .mock, name: "Mega Collection", color: .red)
     NavigationView {
-        MyItems(collection: $collection)
+        VinylList(collection: $collection)
     }
 }

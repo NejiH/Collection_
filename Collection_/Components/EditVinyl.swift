@@ -1,5 +1,5 @@
 //
-//  EditItem.swift
+//  EditVinyl.swift
 //  Collection_
 //
 //  Created by Arnaud Hayon on 05/01/2025.
@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-struct EditItem: View {
+struct EditVinyl: View {
     
     @Environment(\.dismiss) var dismiss
     
-    @State var item: Vinyls
-    @Binding var collection: VinylCollection
+    @State var item: Vinyl
+    @Binding var collection: ItemCollection
     let vinylID: Int
     
-    init(vinylID: Int? = nil, collection: Binding<VinylCollection>) {
+    init(vinylID: Int? = nil, collection: Binding<ItemCollection>) {
 //        var biggestPossibleID = 11
         var biggestPossibleID = vinylID ?? -1
         print("biggestPossibleID:", biggestPossibleID)
@@ -33,7 +33,7 @@ struct EditItem: View {
         }
         print("@ biggestPossibleID:", biggestPossibleID)
         self.vinylID = biggestPossibleID
-        self.item = collection.wrappedValue.vinyls.first(where: { $0.id == biggestPossibleID }) ?? Vinyls(id: biggestPossibleID)
+        self.item = collection.wrappedValue.vinyls.first(where: { $0.id == biggestPossibleID }) ?? Vinyl(id: biggestPossibleID)
         self._collection = collection
     }
   
@@ -102,9 +102,9 @@ struct EditItem: View {
 }
 
 //#Preview("Add") {
-//  EditItem(collectionID: 42)
+//  EditVinyl(collectionID: 42)
 //}
 //
 //#Preview("Edit") {
-//  EditItem(collectionID: 44, item: .mock)
+//  EditVinyl(collectionID: 44, item: .mock)
 //}

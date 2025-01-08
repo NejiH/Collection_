@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  CollectionList.swift
 //  Collection_
 //
 //  Created by Arnaud Hayon on 16/12/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-//struct ContentView: View {
+//struct CollectionList: View {
 //    var body: some View {
 //        VStack {
 //            Image(systemName: "globe")
@@ -20,9 +20,9 @@ import SwiftUI
 //    }
 //}
 
-struct ContentView: View {
+struct CollectionList: View {
     
-    @Binding var collections: [VinylCollection]
+    @Binding var collections: [ItemCollection]
   
     let columns = [
         GridItem(.flexible()),
@@ -33,7 +33,7 @@ struct ContentView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 10) {
                 ForEach($collections, id: \.name) { oneCollection in
-                    MyCollections(collection: oneCollection)
+                    Collections(collection: oneCollection)
                 }
             }
             .padding()
@@ -44,7 +44,7 @@ struct ContentView: View {
 
 
 //#Preview {
-//  ContentView(collections: [
+//  CollectionList(collections: [
 //    .init(id: 1, vinyls: .mock1, name: "Mega Collection", color: .red),
 //    .init(id: 2, vinyls: .mock2, name: "Super Collection", color: .blue),
 //    .init(id: 3, vinyls: .mock3, name: "Left Collection", color: .red),
