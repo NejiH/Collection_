@@ -26,19 +26,19 @@ Collection is an iOS application designed to help you manage and organize your v
 ### Screenshots
 
 Homepage
-![Homepage / collection](./Collection_/Assets.xcassets/collection-home.imageset/collection-home.png?raw=true | width=300)
+<img src="./Collection_/Assets.xcassets/collection-home.imageset/collection-home.png" width="300" alt="Homepage / collection">
 
 List of items
-![List of items](./Collection_/Assets.xcassets/collection-listOfItems.imageset/collection-listOfItems.png?raw=true | width=300)
+<img src="./Collection_/Assets.xcassets/collection-listOfItems.imageset/collection-listOfItems.png" width="300" alt="List of items">
 
 Item
-![Item](./Collection_/Assets.xcassets/collection-item.imageset/collection-item.png?raw=true | width=300)
+<img src="./Collection_/Assets.xcassets/collection-item.imageset/collection-item.png" width="300" alt="Item">
 
 Edit item
-![Edit item](./Collection_/Assets.xcassets/collection-editItem.imageset/collection-editItem.png?raw=true | width=300)
+<img src="./Collection_/Assets.xcassets/collection-editItem.imageset/collection-editItem.png" width="300" alt="Edit item">
 
 Add item
-![Add item](./Collection_/Assets.xcassets/collection-addItem.imageset/collection-addItem.png?raw=true | width=300)
+<img src="./Collection_/Assets.xcassets/collection-addItem.imageset/collection-addItem.png" width="300" alt="Add item">
 
 ### Links
 
