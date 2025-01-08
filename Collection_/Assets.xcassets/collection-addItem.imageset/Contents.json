@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "collection-addItem.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
