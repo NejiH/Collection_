@@ -1,6 +1,6 @@
 # Collection
 
-Collection is an iOS application in development designed to help you manage and organize your various collections, including vinyls, video games, books, and more.
+Collection is an iOS application <b>in development</b> designed to help you manage and organize your various collections, including vinyls, video games, books, and more.
 
 ## Table of contents
 
