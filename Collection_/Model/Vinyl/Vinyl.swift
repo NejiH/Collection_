@@ -4,7 +4,6 @@
 //
 //  Created by Arnaud Hayon on 17/12/2024.
 //
-
 import Foundation
 
 struct Vinyl: Codable, Identifiable {
@@ -34,37 +33,5 @@ struct Vinyl: Codable, Identifiable {
         self.genre_id = genre_id
         self.created_at = created_at
         self.cover_image_url = cover_image_url
-    }
-}
-
-struct Genre: Codable, Identifiable {
-    let id: Int
-    let name: String
-    
-    init(id: Int, name: String) {
-        self.id = id
-        self.name = name
-    }
-}
-
-struct Artist: Codable, Identifiable {
-    let id: Int
-    let name: String
-    let genre_id: Int
-    
-    init(id: Int, name: String, genre_id: Int) {
-        self.id = id
-        self.name = name
-        self.genre_id = genre_id
-    }
-}
-
-struct VinylArtist {
-    let vinyl_id: Int
-    let artist_id: Int
-    
-    init(vinyl_id: Int, artist_id: Int) {
-        self.vinyl_id = vinyl_id
-        self.artist_id = artist_id
     }
 }

@@ -33,7 +33,7 @@ struct CollectionList: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 10) {
                 ForEach($collections, id: \.name) { oneCollection in
-                    Collections(collection: oneCollection)
+                    CollectionDetail(collection: oneCollection)
                 }
             }
             .padding()

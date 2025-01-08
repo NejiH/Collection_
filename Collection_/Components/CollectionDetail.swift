@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Collections: View {
+struct CollectionDetail: View {
     
     @Binding var collection: ItemCollection
     
@@ -34,11 +34,11 @@ struct Collections: View {
                 }
             }
         }
-        .navigationTitle("Mes Collections")
+        .navigationTitle("Mes CollectionDetail")
     }
 }
 //#Preview {
-//  Collections(
+//  CollectionDetail(
 //    collection: ItemCollection(
 //      id: 43,
 //      vinyls: .mock1,
@@ -46,7 +46,7 @@ struct Collections: View {
 //      color: .red
 //    )
 //  );
-//  Collections(
+//  CollectionDetail(
 //    collection: ItemCollection(
 //      id: 44,
 //      vinyls: .mock2,
