@@ -56,8 +56,8 @@ Since it's my very first Swift and SwiftUI project, I've learned everything. But
 ### Next steps
 
 - Add more collection type
-- Connect to Supabase to use my real databse
-- Work on a real design
+- Connect to Supabase to use my databse
+- Improve the design
 
 ## Author
 
