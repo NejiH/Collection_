@@ -26,10 +26,10 @@ Collection is an iOS application <b>in development</b> designed to help you mana
 ### Screenshots
 
 <b>Homepage (List of collections) > List of items</b> <br>
-<img src="./Collection_/Assets.xcassets/collection_1.imageset/collection_1.png" width="300" alt="collections">
+<img src="https://github.com/NejiH/Collection_/blob/main/Collection_/Assets.xcassets/Collection_1.imageset/Collection%201.png?raw=true" width="300" alt="collections">
 
 <b>Item > Add or Edit</b><br>
-<img src="./Collection_/Assets.xcassets/collection_2.imageset/collection_2.png" width="300" alt="items">
+<img src="https://github.com/NejiH/Collection_/blob/main/Collection_/Assets.xcassets/Collection_2.imageset/Collection%202.png?raw=true" width="300" alt="items">
 
 ### Links
 
