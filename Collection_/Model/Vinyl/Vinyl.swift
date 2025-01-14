@@ -7,31 +7,36 @@
 import Foundation
 
 struct Vinyl: Codable, Identifiable {
-    var id: Int
-    var title: String
-    var release_date: Date
-    var artist_id: Int
-    var genre_id: Int
-    var created_at: Date
+    var id: UUID
+    var barcode: Int
     var cover_image_url: String
+    var release_date: Date
+    var created_at: Date
+    var updated_at: Date?
+    var genre_id: UUID
+    var artist_id: UUID
+    var item_id: UUID
     
-    init(id: Int = -1){
+    //    init(id: Int = -1){
+    //        self.id = UUID()
+    //        self.barcode = 0
+    //        self.cover_image_url = "https://i.discogs.com/oHZNURChd9_A7sbgVwSTI674FryWSMh5kQrjkZoYMyE/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyNTE1/MzAyLTE3MzQxOTk4/OTAtOTMyNS5qcGVn.jpeg"
+    //        self.release_date = Date.now
+    //        self.created_at = Date.now
+    //        self.genre_id = UUID()
+    //        self.artist_id = UUID()
+    //        self.item_id = UUID()
+    
+    
+    init(id: UUID, barcode: Int, cover_image_url: String, release_date: Date, created_at: Date, updated_at: Date?, genre_id: UUID, artist_id: UUID, item_id: UUID) {
         self.id = id
-        self.title = ""
-        self.release_date = Date.now
-        self.artist_id = 1
-        self.genre_id = 1
-        self.created_at = Date.now
-        self.cover_image_url = "https://i.discogs.com/oHZNURChd9_A7sbgVwSTI674FryWSMh5kQrjkZoYMyE/rs:fit/g:sm/q:90/h:597/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyNTE1/MzAyLTE3MzQxOTk4/OTAtOTMyNS5qcGVn.jpeg"
-    }
-
-    init(id: Int, title: String, release_date: Date, artist_id: Int, genre_id: Int, created_at: Date, cover_image_url: String) {
-        self.id = id
-        self.title = title
-        self.release_date = release_date
-        self.artist_id = artist_id
-        self.genre_id = genre_id
-        self.created_at = created_at
+        self.barcode = barcode
         self.cover_image_url = cover_image_url
+        self.release_date = release_date
+        self.created_at = created_at
+        self.updated_at = updated_at
+        self.genre_id = genre_id
+        self.artist_id = artist_id
+        self.item_id = item_id
     }
 }

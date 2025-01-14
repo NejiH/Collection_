@@ -34,7 +34,7 @@ struct CollectionDetail: View {
                 }
             }
         }
-        .navigationTitle("Mes CollectionDetail")
+        .navigationTitle("Mes Collections")
     }
 }
 //#Preview {

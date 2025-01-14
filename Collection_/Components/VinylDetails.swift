@@ -10,6 +10,7 @@ import SwiftUI
 struct VinylDetails: View {
     
     @Binding var vinyl: Vinyl
+    @State var item: Item
     @State var artist = [Artist].mock
     @State var genre = [Genre].mock
     @Binding var collection: ItemCollection
@@ -34,7 +35,7 @@ struct VinylDetails: View {
                 .cornerRadius(10)
 
               Divider()
-                Text(vinyl.title)
+                Text(item.name)
                     .font(.title)
                     //.font(.system(size: 40, weight: .bold))
                     .padding(1)
@@ -42,7 +43,7 @@ struct VinylDetails: View {
                 
                 NavigationLink(destination: ArtistsDetails(artistId: vinyl.artist_id)) {
                     if let artist = artist.first(where: { $0.id == vinyl.artist_id }) {
-                        Text(artist.name)
+                        Text(artist.artist_name)
                             .font(.headline)
                             .padding(1)
                     }
@@ -52,13 +53,13 @@ struct VinylDetails: View {
                 HStack {
                     Text("Sortie :")
                         .font(.headline)
-                     Text(vinyl.release_date.formattedDate())
+                    Text(vinyl.release_date.stringValue)
                         .font(.headline)
                 }
                 
                 NavigationLink(destination: GenresDetails(genreId: vinyl.genre_id)) {
                     if let genre = genre.first (where: {$0.id == vinyl.genre_id}) {
-                        Text(genre.name)
+                        Text(genre.genre_name)
                             .font(.headline)
                             .padding(1)
                             
@@ -68,7 +69,7 @@ struct VinylDetails: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .navigationTitle(vinyl.title)
+        .navigationTitle(item.name)
         .toolbar {
             ToolbarItem {
                 NavigationLink (destination: EditVinyl(vinylID: vinyl.id, collection: $collection)) {

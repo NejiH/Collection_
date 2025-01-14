@@ -10,7 +10,7 @@ import SwiftUI
 // To delete in the future
 
 struct ItemCollection: Identifiable {
-    let id: Int
+    var id: Int
     var vinyls: [Vinyl]
     var vinylsData: [Vinyl.ID: Vinyl] {
         didSet {
@@ -33,7 +33,7 @@ extension Dictionary where Key: Hashable {
     init<S>(flatGrouping values: S, by keyForValue: (S.Element) throws -> Key) rethrows
     where Value == S.Element, S: Sequence {
         self = try values.reduce(into: [:]) { result, element in
-            let key = try keyForValue(element)
+            var key = try keyForValue(element)
             result[key] = element // Directly assign the value
         }
     }

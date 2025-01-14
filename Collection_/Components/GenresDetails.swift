@@ -12,7 +12,7 @@ struct GenresDetails: View {
     let vinyls = [Vinyl].mock
     let genre = [Genre].mock
     
-    let genreId: Int
+    let genreId: UUID
     
     let columns = [
         GridItem(.flexible(), alignment: .leading)
@@ -26,7 +26,7 @@ struct GenresDetails: View {
     
     var genreName: String {
             if let currentGenre = genre.first(where: { $0.id == genreId }) {
-                return currentGenre.name
+                return currentGenre.genre_name
             }
             return "Genre"
         }
@@ -67,5 +67,5 @@ struct GenresDetails: View {
     }
 }
 #Preview {
-    GenresDetails(genreId: 1)
+    GenresDetails(genreId: UUID(uuidString: "1A4F3C2B-8D7E-4F6A-9B2C-5E3D8A7C1F4E")!)
 }
