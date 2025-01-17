@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Collections: Codable, Identifiable {
-    var id: Int
+struct Collection: Codable, Identifiable {
+    var id: UUID
     var name: String
-    var created_at: Date
-    var updated_at: Date?
+    var created_at: String
+    var updated_at: String?
     
-    init(id: Int, name: String, created_at: Date, updated_at: Date?) {
+    init(id: UUID, name: String, created_at: String, updated_at: String?) {
         self.id = id
         self.name = name
         self.created_at = created_at

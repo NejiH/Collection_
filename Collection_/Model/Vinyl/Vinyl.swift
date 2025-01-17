@@ -9,10 +9,9 @@ import Foundation
 struct Vinyl: Codable, Identifiable {
     var id: UUID
     var barcode: Int
-    var cover_image_url: String
-    var release_date: Date
-    var created_at: Date
-    var updated_at: Date?
+    var release_date: String
+    var created_at: String
+    var updated_at: String?
     var genre_id: UUID
     var artist_id: UUID
     var item_id: UUID
@@ -28,10 +27,9 @@ struct Vinyl: Codable, Identifiable {
     //        self.item_id = UUID()
     
     
-    init(id: UUID, barcode: Int, cover_image_url: String, release_date: Date, created_at: Date, updated_at: Date?, genre_id: UUID, artist_id: UUID, item_id: UUID) {
+    init(id: UUID, barcode: Int, release_date: String, created_at: String, updated_at: String?, genre_id: UUID, artist_id: UUID, item_id: UUID) {
         self.id = id
         self.barcode = barcode
-        self.cover_image_url = cover_image_url
         self.release_date = release_date
         self.created_at = created_at
         self.updated_at = updated_at

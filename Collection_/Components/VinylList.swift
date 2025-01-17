@@ -6,72 +6,70 @@
 //
 
 import SwiftUI
+import Supabase
 
 struct VinylList: View {
-  
-  @Binding var collection: ItemCollection
+    
+    var collection: Collection
+    @State var items: [Item] = []
     
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
-    var body: some View {
-       
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 10) {
-                  ForEach($collection.vinyls) { vinyl in
-                      NavigationLink(destination: VinylDetails(vinyl: vinyl, collection: $collection)) {
-                            VStack {
-                                AsyncImage(url: URL(string: vinyl.wrappedValue.cover_image_url)) {image in
-                                    image.resizable()
-
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                                .frame(width:100, height:100)
-                                .background(Color.tileBackground)
-                                .cornerRadius(10)
-
-                              Text(vinyl.wrappedValue.title)
-                                    .font(.headline)
-                                    .foregroundStyle(.black)
-                                    .lineLimit(1)
-
-                            }
-                        }
-                    }
-                }
-            }
-            .padding()
-            .overlay {
-              if collection.vinyls.isEmpty {
-                    ProgressView()
-                }
-            }
-            .navigationTitle("Mes Items")
-            .toolbar {
-                ToolbarItem {
-                    NavigationLink (destination: EditVinyl(collection: $collection)) {
-                            Text("Add")
-                        }
-                    }
-                }
-            }
-            
-            
-//            .task {
-//                do {
-//                    vinyls = try await supabase.database.from("vinyls").select().execute().value
-//                } catch {
-//                    print(error)
-//                }
-//            }
-}
-
-#Preview {
-  @Previewable @State var collection = ItemCollection(id: 1, vinyls: .mock, name: "Mega Collection", color: .red)
-    NavigationView {
-        VinylList(collection: $collection)
+    func vinylLink(item: Item) -> some View {
+        NavigationLink {
+            VinylDetails(
+                item: item
+            )
+        } label: {
+            VinylCell(imageUrl: item.cover_image_url ?? "https://assets.fontsinuse.com/use-media/51196/upto-700xauto/58f577f9/@2x/jpeg/C9H8-PWUIAAzbQ2-jpg-large-e.jpeg", title: item.name)
+        }
     }
-}
+    
+    var body: some View {
+        ScrollView {
+                  LazyVGrid(columns: columns, spacing: 10) {
+                      ForEach(items) { item in
+                          vinylLink(item: item)
+                      }
+                  }
+              }
+              .padding()
+              .overlay {
+                  if items.isEmpty {
+                      ProgressView()
+                  }
+              }
+              .navigationTitle("Mes Items")
+              .toolbar {
+                  ToolbarItem(placement: .navigationBarTrailing) {
+                      NavigationLink {
+                              Text("Add") // EditVinyl(item: Array.mock.first!, collection: $collection)
+                      } label: {
+                          Text("Add")
+                      }
+                  }
+              }
+              .task {
+                  do {
+                      items = try await supabase.database.from("items").select().eq("collection_id", value: collection.id).execute().value
+                  } catch {
+                      print(error)
+                  }
+              }
+          }
+    
+    
+      }
+
+
+//#Preview {
+//    @State var collection = ItemCollection(id: 1, vinyls: .mock, name: "Mega Collection", color: .red)
+//    @State var items: [Item] = .mock
+//    
+//    NavigationView {
+//        VinylList(collection: $collection, items: $items)
+//    }
+//}

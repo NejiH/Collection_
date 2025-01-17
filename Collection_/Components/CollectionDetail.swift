@@ -9,14 +9,14 @@ import SwiftUI
 
 struct CollectionDetail: View {
     
-    @Binding var collection: ItemCollection
+    var collection: Collection
     
     var body: some View {
         HStack {
-            if let firstVinyl = collection.vinyls.first {
-                NavigationLink(destination: VinylList(collection: $collection)) {
+//            if let firstVinyl = collection.vinyls.first {
+                NavigationLink(destination: VinylList(collection: collection)) {
                     VStack {
-                        AsyncImage(url: URL(string: firstVinyl.cover_image_url)) { image in
+                        AsyncImage(url: URL(string: "https://assets.fontsinuse.com/use-media/51196/upto-700xauto/58f577f9/@2x/jpeg/C9H8-PWUIAAzbQ2-jpg-large-e.jpeg")) { image in
                             image
                                 .resizable()
                         } placeholder: {
@@ -32,7 +32,7 @@ struct CollectionDetail: View {
                             .lineLimit(1)
                     }
                 }
-            }
+//            }
         }
         .navigationTitle("Mes Collections")
     }

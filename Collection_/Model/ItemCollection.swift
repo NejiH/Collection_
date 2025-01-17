@@ -33,7 +33,7 @@ extension Dictionary where Key: Hashable {
     init<S>(flatGrouping values: S, by keyForValue: (S.Element) throws -> Key) rethrows
     where Value == S.Element, S: Sequence {
         self = try values.reduce(into: [:]) { result, element in
-            var key = try keyForValue(element)
+            let key = try keyForValue(element)
             result[key] = element // Directly assign the value
         }
     }

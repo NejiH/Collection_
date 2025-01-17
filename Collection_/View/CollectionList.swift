@@ -22,7 +22,7 @@ import SwiftUI
 
 struct CollectionList: View {
     
-    @Binding var collections: [ItemCollection]
+    var collections: [Collection]
   
     let columns = [
         GridItem(.flexible()),
@@ -32,8 +32,8 @@ struct CollectionList: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 10) {
-                ForEach($collections, id: \.name) { oneCollection in
-                    CollectionDetail(collection: oneCollection)
+                ForEach(collections, id: \.name) { collection in
+                    CollectionDetail(collection: collection)
                 }
             }
             .padding()

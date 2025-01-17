@@ -13,11 +13,11 @@ struct Item: Codable, Identifiable {
     var name: String
     var description: String
     var cover_image_url: String?
-    var created_at: Date
-    var updated_at: Date
+    var created_at: String
+    var updated_at: String?
     var collection_id: UUID
     
-    init(id: UUID, name: String, description: String, cover_image_url: String?, created_at: Date, updated_at: Date, collection_id: UUID) {
+    init(id: UUID, name: String, description: String, cover_image_url: String?, created_at: String, updated_at: String?, collection_id: UUID) {
         self.id = id
         self.name = name
         self.description = description
