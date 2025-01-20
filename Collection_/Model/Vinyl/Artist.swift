@@ -9,11 +9,11 @@ import Foundation
 struct Artist: Codable, Identifiable {
     var id: UUID
     var artist_name: String
-    var created_at: Date
-    var updated_at: Date?
+    var created_at: String
+    var updated_at: String?
     var genre_id: UUID
     
-    init(id: UUID, artist_name: String, created_at: Date, updated_at: Date?, genre_id: UUID) {
+    init(id: UUID, artist_name: String, created_at: String, updated_at: String?, genre_id: UUID) {
         self.id = id
         self.artist_name = artist_name
         self.created_at = created_at

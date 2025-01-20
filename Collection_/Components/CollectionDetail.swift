@@ -6,35 +6,55 @@
 //
 
 import SwiftUI
+import Supabase
 
 struct CollectionDetail: View {
     
     var collection: Collection
+    @State var items: [Item] = []
     
     var body: some View {
         HStack {
-//            if let firstVinyl = collection.vinyls.first {
+            if items.isEmpty {
+                Image(systemName: "photo")
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .background(Color.tileBackground)
+                    .cornerRadius(10)
+            } else {
                 NavigationLink(destination: VinylList(collection: collection)) {
                     VStack {
-                        AsyncImage(url: URL(string: "https://assets.fontsinuse.com/use-media/51196/upto-700xauto/58f577f9/@2x/jpeg/C9H8-PWUIAAzbQ2-jpg-large-e.jpeg")) { image in
-                            image
-                                .resizable()
-                        } placeholder: {
-                            ProgressView()
+                        if let randomCoverImageURL = items.randomElement()?.cover_image_url,
+                           let url = URL(string: randomCoverImageURL) {
+                            AsyncImage(url: url) { image in
+                                image
+                                    .resizable()
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(width: 100, height: 100)
+                            .background(Color.tileBackground)
+                            .cornerRadius(10)
+                            
+                            Text(collection.name)
+                                .font(.headline)
+                                .foregroundStyle(.black)
+                                .lineLimit(1)
                         }
-                        .frame(width: 100, height: 100)
-                        .background(Color.tileBackground)
-                        .cornerRadius(10)
-
-                      Text(collection.name)
-                            .font(.headline)
-                            .foregroundStyle(.black)
-                            .lineLimit(1)
                     }
                 }
-//            }
-        }
+            }
+           
+
+    }
         .navigationTitle("Mes Collections")
+        .task {
+            do {
+                items = try await supabase.database.from("items").select().eq("collection_id", value: collection.id).execute().value
+            } catch {
+                print(error)
+            }
+        }
     }
 }
 //#Preview {
