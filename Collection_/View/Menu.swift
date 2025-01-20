@@ -33,11 +33,13 @@ struct Menu: View {
 //            CollectionList(collections: $oldCollections, items: $items)
             
         }
+
         .task {
             do {
                 collections = try await supabase.database.from("collections")
                     .select().execute().value
 //                print(collections)
+
             } catch {
                 dump(error)
             }

@@ -44,7 +44,6 @@ struct CollectionDetail: View {
                     }
                 }
             }
-           
 
     }
         .navigationTitle("Mes Collections")
@@ -55,6 +54,7 @@ struct CollectionDetail: View {
                 print(error)
             }
         }
+
     }
 }
 //#Preview {
