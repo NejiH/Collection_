@@ -15,13 +15,13 @@ struct StyledGenericButton: View {
         case text(value: String)
     }
     
+    let type: ButtonType
+    let caption: String?
+    
     internal init(type: StyledGenericButton.ButtonType, caption: String? = nil) {
         self.type = type
         self.caption = caption
     }
-    
-    let type: ButtonType
-    let caption: String?
     
     var buttonLabel: String {
         switch type {

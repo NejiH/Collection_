@@ -7,13 +7,17 @@
 import Foundation
 
 struct Artist: Codable, Identifiable {
-    let id: Int
-    let name: String
-    let genre_id: Int
+    var id: UUID
+    var artist_name: String
+    var created_at: String
+    var updated_at: String?
+    var genre_id: UUID
     
-    init(id: Int, name: String, genre_id: Int) {
+    init(id: UUID, artist_name: String, created_at: String, updated_at: String?, genre_id: UUID) {
         self.id = id
-        self.name = name
+        self.artist_name = artist_name
+        self.created_at = created_at
+        self.updated_at = updated_at
         self.genre_id = genre_id
     }
 }

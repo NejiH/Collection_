@@ -6,18 +6,27 @@
 //
 
 import SwiftUI
+import Supabase
 
 struct CollectionDetail: View {
     
-    @Binding var collection: ItemCollection
+    var collection: Collection
+    @State var items: [Item] = []
     
     var body: some View {
         HStack {
-            HStack {
-                if let firstVinyl = collection.vinyls.first {
-                    NavigationLink(destination: VinylList(collection: $collection)) {
-                        VStack {
-                            AsyncImage(url: URL(string: firstVinyl.cover_image_url)) { image in
+            if items.isEmpty {
+                Image(systemName: "photo")
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .background(Color.tileBackground)
+                    .cornerRadius(10)
+            } else {
+                NavigationLink(destination: VinylList(collection: collection)) {
+                    VStack {
+                        if let randomCoverImageURL = items.randomElement()?.cover_image_url,
+                           let url = URL(string: randomCoverImageURL) {
+                            AsyncImage(url: url) { image in
                                 image
                                     .resizable()
                             } placeholder: {
@@ -35,9 +44,17 @@ struct CollectionDetail: View {
                     }
                 }
             }
-           
-        }
+
+    }
         .navigationTitle("Mes Collections")
+        .task {
+            do {
+                items = try await supabase.database.from("items").select().eq("collection_id", value: collection.id).execute().value
+            } catch {
+                print(error)
+            }
+        }
+
     }
 }
 //#Preview {

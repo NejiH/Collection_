@@ -7,10 +7,10 @@
 import Foundation
 
 struct VinylArtist {
-    let vinyl_id: Int
-    let artist_id: Int
+    let vinyl_id: UUID
+    let artist_id: UUID
     
-    init(vinyl_id: Int, artist_id: Int) {
+    init(vinyl_id: UUID, artist_id: UUID) {
         self.vinyl_id = vinyl_id
         self.artist_id = artist_id
     }

@@ -7,11 +7,15 @@
 import Foundation
 
 struct Genre: Codable, Identifiable {
-    let id: Int
-    let name: String
+    var id: UUID
+    var genre_name: String
+    var created_at: String
+    var updated_at: String?
     
-    init(id: Int, name: String) {
+    init(id: UUID, genre_name: String, created_at: String, updated_at: String?) {
         self.id = id
-        self.name = name
+        self.genre_name = genre_name
+        self.created_at = created_at
+        self.updated_at = updated_at
     }
 }

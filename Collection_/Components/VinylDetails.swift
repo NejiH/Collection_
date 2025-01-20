@@ -6,13 +6,20 @@
 //
 
 import SwiftUI
+import Supabase
 
 struct VinylDetails: View {
     
-    @Binding var vinyl: Vinyl
-    @State var artist = [Artist].mock
-    @State var genre = [Genre].mock
-    @Binding var collection: ItemCollection
+    //    @Binding var vinyl: Vinyl
+    var item: Item
+    @State var vinyl: Vinyl? = nil
+    @State var artist: Artist? = nil
+    @State var genre: Genre? = nil
+    
+    
+    //    @State var artist = [Artist].mock
+    //    @State var genre = [Genre].mock
+    //    @Binding var collection: ItemCollection
     
     let columns = [
         GridItem(.fixed(300))
@@ -21,62 +28,99 @@ struct VinylDetails: View {
     var body: some View {
         LazyVGrid(columns: columns, spacing: 10) {
             VStack(alignment: .leading) {
-                AsyncImage(url: URL(string: vinyl.cover_image_url)) { image in
+                AsyncImage(url: URL(string: item.cover_image_url ?? "default_image")) { image in
                     image
                         .resizable()
-                    
-                    
                 } placeholder: {
                     ProgressView()
                 }
                 .frame(width: 300, height: 300)
                 .background(Color.tileBackground)
                 .cornerRadius(10)
-
-              Divider()
-                Text(vinyl.title)
+                
+                Divider()
+                
+                Text(item.name)
                     .font(.title)
-                    //.font(.system(size: 40, weight: .bold))
                     .padding(1)
                 
+                if let artist {
+                    Text(artist.artist_name)
+                        .font(.headline)
+                        .padding(1)
+                }
                 
-                NavigationLink(destination: ArtistsDetails(artistId: vinyl.artist_id)) {
-                    if let artist = artist.first(where: { $0.id == vinyl.artist_id }) {
-                        Text(artist.name)
-                            .font(.headline)
-                            .padding(1)
-                    }
+                if let genre {
+                    Text(genre.genre_name)
+                        .font(.headline)
+                        .padding(1)
+                }
+            
+            //                NavigationLink(destination: ArtistsDetails(artistId: vinyl.artist_id)) {
+            //                    if let artist = artist.first(where: { $0.id == vinyl.artist_id }) {
+            //                        Text(artist.artist_name)
+            //                            .font(.headline)
+            //                            .padding(1)
+            //                    }
+            //
+            //                }
+            
+            //                HStack {
+            //                    Text("Sortie :")
+            //                        .font(.headline)
+            //                    Text(vinyl.release_date.stringValue)
+            //                        .font(.headline)
+            //                }
+            //
+            //                NavigationLink(destination: GenresDetails(genreId: vinyl.genre_id)) {
+            //                    if let genre = genre.first (where: {$0.id == vinyl.genre_id}) {
+            //                        Text(genre.genre_name)
+            //                            .font(.headline)
+            //                            .padding(1)
+            //
+            //                    }
+            //                }
+        }
+    }
+    
+    //        .task {
+    //            do {
+    //                // vinyl = try await SupabaseService.getVinyl(itemId: item.id)
+    //                let vinyls: [Vinyl] = try await supabase.database.from("vinyls").select().eq("item_id", value: item.id).execute().value
+    //                vinyl = vinyls[0]
+    //            } catch {
+    //                print(error)
+    //            }
+    //        }
+        .task { // update la base de données après le rechargement de la page - next step: A modifier pour le passer en onAppear
+            do {
+                if let fetchedVinyl = await SupabaseService.shared.getVinyl(itemId: item.id) {
+                    vinyl = fetchedVinyl
+                    print("Vinyl", fetchedVinyl)
                     
+                    let fetchedArtist = try await SupabaseService.shared.getArtist(artistId: fetchedVinyl.artist_id)
+                    artist = fetchedArtist
+                    print("Artist", fetchedArtist)
+                    
+                    let fetchedGenre = try await SupabaseService.shared.getGenre(genreId: fetchedVinyl.genre_id)
+                    genre = fetchedGenre
+                    print("Genre", fetchedGenre)
                 }
-                
-                HStack {
-                    Text("Sortie :")
-                        .font(.headline)
-                     Text(vinyl.release_date.formattedDate())
-                        .font(.headline)
-                }
-                
-                NavigationLink(destination: GenresDetails(genreId: vinyl.genre_id)) {
-                    if let genre = genre.first (where: {$0.id == vinyl.genre_id}) {
-                        Text(genre.name)
-                            .font(.headline)
-                            .padding(1)
-                            
-                    }
-                }
+            } catch {
+                print("Error fetching vinyl: \(error)")
             }
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .navigationTitle(vinyl.title)
-        .toolbar {
-            ToolbarItem {
-                NavigationLink (destination: EditVinyl(vinylID: vinyl.id, collection: $collection)) {
-                        Text("Edit")
+        .navigationTitle(item.name)
+            .toolbar {
+                ToolbarItem {
+                    NavigationLink (destination: EditVinyl(itemId: item.id)) {
+                            Text("Edit")
+                        }
                     }
                 }
-            }
-    }
+}
 }
 
 //#Preview {

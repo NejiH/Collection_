@@ -10,7 +10,7 @@ import SwiftUI
 // To delete in the future
 
 struct ItemCollection: Identifiable {
-    let id: Int
+    var id: Int
     var vinyls: [Vinyl]
     var vinylsData: [Vinyl.ID: Vinyl] {
         didSet {
