@@ -125,9 +125,6 @@ struct EditVinyl: View {
             if let itemId {
                 genres = await SupabaseService.shared.getAllGenres()
                 artists = await SupabaseService.shared.getAllArtists()
-                print("artists.count:", artists)
-                print("genres.count:", genres)
-
                 if let fetchedVinyl = await SupabaseService.shared.getVinyl(itemId: itemId) {
                     vinyl = fetchedVinyl
                 }

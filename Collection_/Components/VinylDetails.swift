@@ -96,15 +96,10 @@ struct VinylDetails: View {
             do {
                 if let fetchedVinyl = await SupabaseService.shared.getVinyl(itemId: item.id) {
                     vinyl = fetchedVinyl
-                    print("Vinyl", fetchedVinyl)
-                    
                     let fetchedArtist = try await SupabaseService.shared.getArtist(artistId: fetchedVinyl.artist_id)
                     artist = fetchedArtist
-                    print("Artist", fetchedArtist)
-                    
                     let fetchedGenre = try await SupabaseService.shared.getGenre(genreId: fetchedVinyl.genre_id)
                     genre = fetchedGenre
-                    print("Genre", fetchedGenre)
                 }
             } catch {
                 print("Error fetching vinyl: \(error)")

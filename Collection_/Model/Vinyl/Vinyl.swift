@@ -43,9 +43,9 @@ struct Vinyl: Codable, Identifiable {
         self.id = try container.decode(UUID.self, forKey: .id)
         self.barcode = try container.decode(Int.self, forKey: .barcode)
         
-        if let releaseDate = try container.decodeIfPresent(Date.self, forKey: .release_date) {
+        if let releaseDate = try? container.decodeIfPresent(Date.self, forKey: .release_date) {
             self.release_date = releaseDate
-        } else if let releaseDate = try container.decodeIfPresent(String.self, forKey: .release_date) {
+        } else if let releaseDate = try? container.decodeIfPresent(String.self, forKey: .release_date) {
             let dateFormater = DateFormatter()
             dateFormater.dateFormat = "yyyy-MM-dd"
             self.release_date = dateFormater.date(from: releaseDate) ?? Date.now
@@ -53,9 +53,9 @@ struct Vinyl: Codable, Identifiable {
             self.release_date = Date.now
         }
         
-        if let createdAt = try container.decodeIfPresent(Date.self, forKey: .created_at) {
+        if let createdAt = try? container.decodeIfPresent(Date.self, forKey: .created_at) {
             self.created_at = createdAt
-        } else if let createdAt = try container.decodeIfPresent(String.self, forKey: .created_at) {
+        } else if let createdAt = try? container.decodeIfPresent(String.self, forKey: .created_at) {
             let timestampFormater = DateFormatter()
             timestampFormater.dateFormat = "yyyy-MM-dd HH:mm:ss"
             self.created_at = timestampFormater.date(from: createdAt) ?? Date.now
