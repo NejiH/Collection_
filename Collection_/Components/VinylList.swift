@@ -31,6 +31,7 @@ struct VinylList: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 10) {
+                
                 ForEach(items) { item in
                     vinylLink(item: item)
                 }

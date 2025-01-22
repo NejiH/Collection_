@@ -16,11 +16,18 @@ struct CollectionDetail: View {
     var body: some View {
         HStack {
             if items.isEmpty {
-                Image(systemName: "photo")
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    .background(Color.tileBackground)
-                    .cornerRadius(10)
+                VStack {
+                    Image(systemName: "photo")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .background(Color.tileBackground)
+                        .cornerRadius(10)
+                    
+                    Text(collection.name)
+                        .foregroundStyle(.gray)
+                }
+                
+
             } else {
                 NavigationLink(destination: VinylList(collection: collection)) {
                     VStack {

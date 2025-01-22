@@ -23,7 +23,6 @@ struct EditVinyl: View {
     @State var hasLoadedData = false
 
     init(itemId: UUID? = nil) {
-        // On n'a plus besoin de gérer un ID incrémental car on utilise des UUID
         self.itemId = itemId
         
         //        // Chercher le vinyl existant ou en créer un nouveau
