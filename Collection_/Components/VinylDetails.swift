@@ -16,7 +16,6 @@ struct VinylDetails: View {
     @State var artist: Artist? = nil
     @State var genre: Genre? = nil
     
-    
     //    @State var artist = [Artist].mock
     //    @State var genre = [Genre].mock
     //    @Binding var collection: ItemCollection
@@ -25,6 +24,7 @@ struct VinylDetails: View {
         GridItem(.fixed(300))
     ]
     
+   
     var body: some View {
         LazyVGrid(columns: columns, spacing: 10) {
             VStack(alignment: .leading) {
@@ -44,17 +44,29 @@ struct VinylDetails: View {
                     .font(.title)
                     .padding(1)
                 
-                if let artist {
-                    Text(artist.artist_name)
-                        .font(.headline)
-                        .padding(1)
+                NavigationLink(destination: ArtistsDetails(item: item, vinyls: [], artists: [], artistId: vinyl?.artist_id ?? UUID())) {
+                    if let artist {
+                        Text(artist.artist_name)
+                            .font(.headline)
+                            .padding(1)
+                    }
                 }
+               
                 
                 if let genre {
                     Text(genre.genre_name)
                         .font(.headline)
                         .padding(1)
                 }
+                
+                if let vinyl {
+                    Text(vinyl.formattedReleaseDate)
+                        .font(.headline)
+                        .padding(1)
+                }
+                
+                    
+                    
             
             //                NavigationLink(destination: ArtistsDetails(artistId: vinyl.artist_id)) {
             //                    if let artist = artist.first(where: { $0.id == vinyl.artist_id }) {

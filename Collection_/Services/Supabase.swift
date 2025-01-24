@@ -107,6 +107,68 @@ class SupabaseService {
         return nil
     }
     
+    func getAllVinyls() async throws -> [Vinyl] {
+        do {
+            let vinyls: [Vinyl] = try await client.database
+                .from("vinyls")
+                .select()
+                .execute()
+                .value
+            
+            return vinyls
+        } catch {
+            print("Error fetching vinyl: \(error)")
+            throw error // Relance l'erreur
+        }
+    }
+    
+//    func getAllArtists() async throws -> [Artist] {
+//        do {
+//            let artists: [Artist] = try await client.database
+//                .from("artists")
+//                .select()
+//                .execute()
+//                .value
+//            
+//            return artists
+//        } catch {
+//            print("Error fetching artists: \(error)")
+//            throw error // Relance l'erreur
+//        }
+//    }
+    
+    func getAllArtists() async -> [Artist] {
+        do {
+            let artists: [Artist] = try await client.database
+                .from("artists")
+                .select()
+                .execute()
+                .value
+            
+            return artists
+        } catch {
+            print("Error fetching vinyl: \(error)")
+//            throw error  Relance l'erreur
+        }
+        return []
+    }
+    
+    func getAllVinylsFromArtist(artistId: UUID) async throws -> [Vinyl] {
+        do {
+            let vinylsByArtist: [Vinyl] = try await client.database
+                .from("vinyls")
+                .select()
+                .eq("artist_id", value: artistId)
+                .execute()
+                .value
+            
+            return vinylsByArtist
+        } catch {
+            print("Error fetching vinyls: \(error)")
+            throw DatabaseError.vinylNotFound
+        }
+    }
+    
     func getArtist(artistId: UUID) async throws -> Artist {
         do {
             let artist: [Artist] = try await client.database
@@ -147,20 +209,7 @@ class SupabaseService {
         }
     }
     
-    func getAllVinyls() async throws -> [Vinyl] {
-        do {
-            let vinyls: [Vinyl] = try await client.database
-                .from("vinyls")
-                .select()
-                .execute()
-                .value
-            
-            return vinyls
-        } catch {
-            print("Error fetching vinyl: \(error)")
-            throw error // Relance l'erreur
-        }
-    }
+   
 
     func getAllGenres() async -> [Genre] {
         do {
@@ -174,22 +223,6 @@ class SupabaseService {
         } catch {
             print("Error fetching vinyl: \(error)")
 //            throw error // Relance l'erreur
-        }
-        return []
-    }
-
-    func getAllArtists() async -> [Artist] {
-        do {
-            let artists: [Artist] = try await client.database
-                .from("artists")
-                .select()
-                .execute()
-                .value
-            
-            return artists
-        } catch {
-            print("Error fetching vinyl: \(error)")
-//            throw error  Relance l'erreur
         }
         return []
     }

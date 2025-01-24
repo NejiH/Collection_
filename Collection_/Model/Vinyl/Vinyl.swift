@@ -38,6 +38,13 @@ struct Vinyl: Codable, Identifiable {
         self.item_id = item_id
     }
     
+    var formattedReleaseDate: String {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .none
+            return formatter.string(from: release_date)
+        }
+    
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(UUID.self, forKey: .id)
