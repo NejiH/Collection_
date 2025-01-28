@@ -52,11 +52,12 @@ struct VinylDetails: View {
                     }
                 }
                
-                
-                if let genre {
-                    Text(genre.genre_name)
-                        .font(.headline)
-                        .padding(1)
+                NavigationLink(destination: GenresDetails(genreId: vinyl?.genre_id ?? UUID())) {
+                    if let genre {
+                        Text(genre.genre_name)
+                            .font(.headline)
+                            .padding(1)
+                    }
                 }
                 
                 if let vinyl {
