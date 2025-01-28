@@ -64,12 +64,23 @@ struct EditVinyl: View {
                     }
                     
                     HStack {
-                        Text("Artist")
+                        Text("Genre")
                         Spacer()
-                        Picker("Artist", selection: $vinyl.artist_id) {
-                            ForEach(artists, id: \.id) {
-                                Text($0.artist_name)
+                        Picker("Genre", selection: $vinyl.genre_id) {
+                            ForEach(genres, id: \.id) { genre in
+                                let isSelected = genre.id == vinyl.genre_id
+                                Text(genre.genre_name)
+                                    .tag(genre.id)
+                                    .onAppear {
+                                        print("Genre dans la liste: \(genre.genre_name) avec ID: \(genre.id)")
+                                        print("Genre ID du vinyl: \(vinyl.genre_id)")
+                                        print("Est sélectionné?: \(isSelected)")
+                                    }
                             }
+                        }
+                        .pickerStyle(.menu)
+                        .onChange(of: vinyl.genre_id) { newValue in
+                            print("Nouveau genre sélectionné avec ID: \(newValue)")
                         }
                     }
                     
@@ -77,10 +88,12 @@ struct EditVinyl: View {
                         Text("Genre")
                         Spacer()
                         Picker("Genre", selection: $vinyl.genre_id) {
-                            ForEach(genres, id: \.id) {
-                                Text($0.genre_name)
+                            ForEach(genres, id: \.id) { genre in
+                                Text(genre.genre_name)
+                                    .tag(genre.id)
                             }
                         }
+                        .pickerStyle(.menu)
                     }
                     
                     
@@ -126,6 +139,8 @@ struct EditVinyl: View {
                 artists = await SupabaseService.shared.getAllArtists()
                 if let fetchedVinyl = await SupabaseService.shared.getVinyl(itemId: itemId) {
                     vinyl = fetchedVinyl
+                    print("Vinyl récupéré avec genre_id: \(vinyl.genre_id)")
+
                 }
                 if let fetchedItem = await SupabaseService.shared.getItem(itemId: itemId) {
                     item = fetchedItem

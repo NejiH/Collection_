@@ -10,54 +10,45 @@ import Supabase
 
 struct ArtistsDetails: View {
     
-    var item: Item
-    @State var vinyls: [Vinyl] = []
-    @State var artists: [Artist]
+    struct ArtistWork: Identifiable {
+        let item: Item
+        let vinyl: Vinyl
+        var id: UUID {
+            item.id
+        }
+    }
+    
+    @State var artistName: String = ""
+    @State var works: [ArtistWork] = []
     let artistId: UUID
 
     let columns = [
         GridItem(.flexible(), alignment: .leading)
     ]
-
-//    var filteredVinyls: [Vinyl] {
-//        vinyls.filter { $0.artist_id == artistId }
-//    }
     
-    var filteredVinyls: [Vinyl] {
-        vinyls.filter { vinyl in
-            print("Comparing: \(vinyl.artist_id) == \(artistId)")
-            return vinyl.artist_id == artistId
-        }
-    }
-    
-
-    var artistName: String {
-        artists.first(where: { $0.id == artistId })?.artist_name ?? "Artist"
+    internal init(artistId: UUID) {
+        self.artistId = artistId
     }
     
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 10) {
-                ForEach(filteredVinyls) { vinyl in
-                    NavigationLink(destination: VinylDetails(item: item, vinyl: vinyl)) {
+                ForEach(works) { work in
+                    NavigationLink(destination: VinylDetails(item: work.item, vinyl: work.vinyl)) {
                         HStack(alignment: .center, spacing: 10) {
-                            AsyncImage(url: URL(string: item.cover_image_url ?? "")) { image in
-                                image
-                                    .resizable()
+                            AsyncImage(url: URL(string: work.item.cover_image_url ?? "")) { image in
+                                image.resizable()
                             } placeholder: {
                                 ProgressView()
                             }
                             .frame(width: 100, height: 100)
                             .cornerRadius(10)
                             
-                            
-//                            Text(item.title)
-//                                .font(.title2)
-//                                .fontWeight(.heavy)
-//                                .foregroundStyle(.white)
-//                                .lineLimit(1)
-                            Text("coucou")
-                           
+                            Text(work.item.name)
+                                .font(.title2)
+                                .fontWeight(.heavy)
+                                .foregroundStyle(.white)
+                                .lineLimit(1)
                             
                             Spacer()
                         }
@@ -67,23 +58,26 @@ struct ArtistsDetails: View {
                     }
                 }
             }
-            
             .task {
-                print("ArtistID: \(artistId)")
                 do {
-                    vinyls = try await SupabaseService.shared.getAllVinylsFromArtist(artistId: artistId)
-                    print("Fetched vinyls count: \(vinyls.count)")
-                    print("Filtered vinyls count: \(filteredVinyls.count)")
+                    let vinyl_list = try await SupabaseService.shared.getAllVinylsFromArtist(artistId: artistId)
+                    for vinyl in vinyl_list {
+                        let item = await SupabaseService.shared.getItem(itemId: vinyl.item_id)
+                        if let item {
+                            works.append(ArtistWork(item: item, vinyl: vinyl))
+                        }
+                    }
+                    artistName = try await SupabaseService.shared.getArtist(artistId: artistId).artist_name
                 } catch {
                     print("Error fetching vinyls: \(error)")
                 }
             }
-                .padding()
+            .padding()
         }
         .navigationTitle(artistName)
     }
 }
 
 //#Preview {
-//    ArtistsDetails(artistId: UUID(uuidString: "7G0L9I8H-4J3K-0L2G-5H8I-1K9J4G3I7L0K")!)
+//    ArtistsDetails(artistId: <#T##UUID#>)
 //}

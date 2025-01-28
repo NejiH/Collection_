@@ -44,7 +44,7 @@ struct VinylDetails: View {
                     .font(.title)
                     .padding(1)
                 
-                NavigationLink(destination: ArtistsDetails(item: item, vinyls: [], artists: [], artistId: vinyl?.artist_id ?? UUID())) {
+                NavigationLink(destination: ArtistsDetails(artistId: vinyl?.artist_id ?? UUID())) {
                     if let artist {
                         Text(artist.artist_name)
                             .font(.headline)

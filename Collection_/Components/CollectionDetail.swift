@@ -24,10 +24,10 @@ struct CollectionDetail: View {
                         .cornerRadius(10)
                     
                     Text(collection.name)
+                        .font(.headline)
                         .foregroundStyle(.gray)
+                        .lineLimit(1)
                 }
-                
-
             } else {
                 NavigationLink(destination: VinylList(collection: collection)) {
                     VStack {
@@ -51,8 +51,7 @@ struct CollectionDetail: View {
                     }
                 }
             }
-
-    }
+        }
         .navigationTitle("Mes Collections")
         .task {
             do {
@@ -61,7 +60,7 @@ struct CollectionDetail: View {
                 print(error)
             }
         }
-
+        
     }
 }
 //#Preview {
