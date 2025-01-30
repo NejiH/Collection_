@@ -47,7 +47,7 @@ struct VinylList: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink {
-                    Text("Add") // EditVinyl(item: Array.mock.first!, collection: $collection)
+                    AddItem(name: "", description: "", cover_image_url: "", collection_id: collection.id)
                 } label: {
                     Text("Add")
                 }

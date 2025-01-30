@@ -7,19 +7,6 @@
 
 import SwiftUI
 
-//struct CollectionList: View {
-//    var body: some View {
-//        VStack {
-//            Image(systemName: "globe")
-//                .imageScale(.large)
-//                .foregroundStyle(.tint)
-//            Text("Hello, world!")
-//            Text("")
-//        }
-//        .padding()
-//    }
-//}
-
 struct CollectionList: View {
     
     var collections: [Collection]
@@ -32,15 +19,29 @@ struct CollectionList: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 10) {
+                // Collections existantes
                 ForEach(collections, id: \.name) { collection in
                     CollectionDetail(collection: collection)
                 }
+                
+                HStack {
+                    VStack {
+                        Image(systemName: "plus.app")
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .cornerRadius(10)
+                        
+                        Text("Nouvelle collection")
+                            .font(.headline)
+                            .foregroundStyle(.gray)
+                            .lineLimit(1)
+                    }
+                }
             }
             .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            }
         }
     }
+}
 
 
 //#Preview {

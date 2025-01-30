@@ -45,6 +45,35 @@ class SupabaseService {
         return newVinyl
     }
     
+    func upsertCollection(_ collection: Collection) async throws -> Collection {
+        let created: [Collection] = try await client.database
+            .from("collections")
+            .upsert(collection)
+            .execute()
+            .value
+        
+        guard let newCollection = created.first else {
+            throw DatabaseError.insertionFailed
+        }
+        
+        return newCollection
+    }
+    
+    func getAllCollections() async throws -> [Collection] {
+        do {
+            let collections: [Collection] = try await client.database
+                .from("collections")
+                .select()
+                .execute()
+                .value
+            
+            return collections
+        } catch {
+            print("Error fetching collections: \(error)")
+            throw error // Relance l'erreur
+        }
+    }
+    
     func getItems(collectionId: UUID) async throws -> [Item] {
         do {
             let items: [Item] = try await client.database
