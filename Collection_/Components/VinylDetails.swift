@@ -12,19 +12,29 @@ struct VinylDetails: View {
     
     @Environment(\.dismiss) var dismiss
     
-    //    @Binding var vinyl: Vinyl
     var item: Item
     @State var vinyl: Vinyl? = nil
     @State var artist: Artist? = nil
     @State var genre: Genre? = nil
-    
-    //    @State var artist = [Artist].mock
-    //    @State var genre = [Genre].mock
-    //    @Binding var collection: ItemCollection
+    @State private var updateTrigger = UUID()
     
     let columns = [
         GridItem(.fixed(300))
     ]
+    
+    func fetchVinylDetails() {
+        Task {
+            do {
+                if let fetchedVinyl = await SupabaseService.shared.getVinyl(itemId: item.id) {
+                    vinyl = fetchedVinyl
+                    artist = try await SupabaseService.shared.getArtist(artistId: fetchedVinyl.artist_id)
+                    genre = try await SupabaseService.shared.getGenre(genreId: fetchedVinyl.genre_id)
+                }
+            } catch {
+                print("Error fetching vinyl: \(error)")
+            }
+        }
+    }
     
     
     var body: some View {
@@ -122,26 +132,19 @@ struct VinylDetails: View {
         //                print(error)
         //            }
         //        }
-        .task { // update la base de données après le rechargement de la page - next step: A modifier pour le passer en onAppear
-            do {
-                if let fetchedVinyl = await SupabaseService.shared.getVinyl(itemId: item.id) {
-                    vinyl = fetchedVinyl
-                    let fetchedArtist = try await SupabaseService.shared.getArtist(artistId: fetchedVinyl.artist_id)
-                    artist = fetchedArtist
-                    let fetchedGenre = try await SupabaseService.shared.getGenre(genreId: fetchedVinyl.genre_id)
-                    genre = fetchedGenre
-                    let deleteItem = try await SupabaseService.shared.deleteItem(item.id)
-                }
-            } catch {
-                print("Error fetching vinyl: \(error)")
-            }
+        .onAppear {
+            fetchVinylDetails() //
         }
+        .onChange(of: updateTrigger, initial: false) { _,_  in
+                fetchVinylDetails()
+            }
+        
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .navigationTitle(item.name)
         .toolbar {
             ToolbarItem {
-                NavigationLink (destination: EditVinyl(itemId: item.id)) {
+                NavigationLink(destination: EditVinyl(updateTrigger: $updateTrigger, itemId: item.id)) {
                     Text("Edit")
                 }
             }

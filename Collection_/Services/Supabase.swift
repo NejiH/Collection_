@@ -59,6 +59,23 @@ class SupabaseService {
         return newVinyl
     }
     
+    func deleteCollection(_ collectionId: UUID) async throws -> Collection {
+        let deleted: [Collection] = try await client.database
+            .from("collections")
+            .delete()
+            .eq("id", value: collectionId)
+            .select()
+            .execute()
+            .value
+
+        
+        guard let deleteCollection = deleted.first else {
+            throw DatabaseError.deleteError
+        }
+        
+        return deleteCollection
+    }
+    
     
     func deleteItem(_ itemId: UUID) async throws -> Item {
         let deleted: [Item] = try await client.database
@@ -70,11 +87,11 @@ class SupabaseService {
             .value
 
         
-        guard let newItem = deleted.first else {
+        guard let deleteItem = deleted.first else {
             throw DatabaseError.deleteError
         }
         
-        return newItem
+        return deleteItem
     }
     
     func getAllCollections() async throws -> [Collection] {

@@ -15,16 +15,12 @@ struct EditVinyl: View {
     @State var genres: [Genre] = []
     @State var imageURL: String = ""
     @State var hasLoadedData = false
+    @Binding var updateTrigger: UUID
     
     @State var vinyl: Vinyl = Vinyl(id: UUID(), barcode: 0, release_date: .now, created_at: .now, updated_at: nil, genre_id: UUID(), artist_id: UUID(), item_id: UUID())
     @State var item: Item = Item(id: UUID(), name: "", description: "", cover_image_url: nil, created_at: "", updated_at: nil, collection_id: UUID())
-    //    @Binding var collection: ItemCollection
     
     let itemId: UUID?
-    
-    init(itemId: UUID? = nil) {
-        self.itemId = itemId
-    }
     
     var body: some View {
         ScrollView {
@@ -47,16 +43,13 @@ struct EditVinyl: View {
                         Spacer()
                         Picker("Artist", selection: $vinyl.artist_id) {
                             ForEach(artists, id: \.id) { artist in
-//                                let isSelected = genre.id == vinyl.genre_id
                                 Text(artist.artist_name)
                                     .tag(artist.id)
                             }
                         }
                     }
                     .pickerStyle(.menu)
-//                    .onChange(of: vinyl.genre_id) { newValue in
-//                        print("Nouveau genre sélectionné avec ID: \(newValue)")
-//                    }
+//
                 }
                 
                 HStack {
@@ -99,10 +92,10 @@ struct EditVinyl: View {
                         do {
                             _ = try await SupabaseService.shared.upsertItem(item)
                             _ = try await SupabaseService.shared.upsertVinyl(vinyl)
+                            updateTrigger = UUID()
                         } catch {
                             print(error.localizedDescription)
                         }
-                        //                                await SupabaseService.shared.saveCollection()
                     }
                     dismiss()
                 } label: {
@@ -110,20 +103,23 @@ struct EditVinyl: View {
                 }
             }
         }
-        .task {
-           if let itemId {
-                genres = await SupabaseService.shared.getAllGenres()
-                artists = await SupabaseService.shared.getAllArtists()
-                if let fetchedVinyl = await SupabaseService.shared.getVinyl(itemId: itemId) {
-                    vinyl = fetchedVinyl
+        .onAppear {
+            Task {
+               if let itemId {
+                    genres = await SupabaseService.shared.getAllGenres()
+                    artists = await SupabaseService.shared.getAllArtists()
+                    if let fetchedVinyl = await SupabaseService.shared.getVinyl(itemId: itemId) {
+                        vinyl = fetchedVinyl
+                    }
+                    if let fetchedItem = await SupabaseService.shared.getItem(itemId: itemId) {
+                        item = fetchedItem
+                        imageURL = item.cover_image_url ?? ""
+                    }
+                    hasLoadedData = true
                 }
-                if let fetchedItem = await SupabaseService.shared.getItem(itemId: itemId) {
-                    item = fetchedItem
-                    imageURL = item.cover_image_url ?? ""
-                }
-                hasLoadedData = true
             }
         }
+        
     }
 }
 

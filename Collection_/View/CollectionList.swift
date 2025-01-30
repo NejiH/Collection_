@@ -9,19 +9,43 @@ import SwiftUI
 
 struct CollectionList: View {
     
-    var collections: [Collection]
-  
+    @State private var isEditing: Bool = false
+    @State var collections: [Collection]
+    @State private var collectionToDelete: Collection?
+    @State private var showDeleteConfirmation = false
+
+    
+    @Environment(\.dismiss) var dismiss
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
+    
+    
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 10) {
-                // Collections existantes
-                ForEach(collections, id: \.name) { collection in
-                    CollectionDetail(collection: collection)
+                ForEach(collections, id: \.id) { collection in
+                    VStack {
+                        CollectionDetail(collection: collection)
+                        
+                        if isEditing {
+                            Button {
+                                Task {
+                                    do {
+                                        let deletedCollection = try await SupabaseService.shared.deleteCollection(collection.id)
+                                        collections.removeAll { $0.id == deletedCollection.id }
+                                    } catch {
+                                        print(error.localizedDescription)
+                                    }
+                                }
+                            } label: {
+                                Text("Delete")
+                            }
+                        }
+                    }
                 }
                 
                 NavigationLink (destination: AddCollection()) {
@@ -43,14 +67,18 @@ struct CollectionList: View {
             }
             .padding()
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(isEditing ? "Terminer" : "Éditer") {
+                    isEditing.toggle() 
+                }
+            }
+        }
     }
+    
 }
 
 
-//#Preview {
-//  CollectionList(collections: [
-//    .init(id: 1, vinyls: .mock1, name: "Mega Collection", color: .red),
-//    .init(id: 2, vinyls: .mock2, name: "Super Collection", color: .blue),
-//    .init(id: 3, vinyls: .mock3, name: "Left Collection", color: .red),
-//])
-//}
+#Preview {
+    CollectionList(collections: [])
+}

@@ -55,13 +55,16 @@ struct CollectionDetail: View {
             }
         }
         .navigationTitle("Mes Collections")
-        .task {
-            do {
-                items = try await supabase.database.from("items").select().eq("collection_id", value: collection.id).execute().value
-            } catch {
-                print(error)
+        .onAppear {
+            Task {
+                do {
+                    items = try await supabase.database.from("items").select().eq("collection_id", value: collection.id).execute().value
+                } catch {
+                    print(error)
+                }
             }
         }
+        
     }
 }
 //#Preview {

@@ -53,13 +53,16 @@ struct VinylList: View {
                 }
             }
         }
-        .task {
-            do {
-                items = try await SupabaseService.shared.getItems(collectionId: collection.id)
-            } catch {
-                print(error)
+        .onAppear {
+            Task {
+                do {
+                    items = try await SupabaseService.shared.getItems(collectionId: collection.id)
+                } catch {
+                    print(error)
+                }
             }
         }
+        
     }
 }
 

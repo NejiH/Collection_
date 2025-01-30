@@ -58,19 +58,22 @@ struct ArtistsDetails: View {
                     }
                 }
             }
-            .task {
-                do {
-                    let vinyl_list = try await SupabaseService.shared.getAllVinylsByArtist(artistId: artistId)
-                    for vinyl in vinyl_list {
-                        let item = await SupabaseService.shared.getItem(itemId: vinyl.item_id)
-                        if let item {
-                            works.append(ArtistWork(item: item, vinyl: vinyl))
+            .onAppear {
+                Task {
+                    do {
+                        let vinyl_list = try await SupabaseService.shared.getAllVinylsByArtist(artistId: artistId)
+                        for vinyl in vinyl_list {
+                            let item = await SupabaseService.shared.getItem(itemId: vinyl.item_id)
+                            if let item {
+                                works.append(ArtistWork(item: item, vinyl: vinyl))
+                            }
                         }
+                        artistName = try await SupabaseService.shared.getArtist(artistId: artistId).artist_name
+                    } catch {
+                        print("Error fetching vinyls: \(error)")
                     }
-                    artistName = try await SupabaseService.shared.getArtist(artistId: artistId).artist_name
-                } catch {
-                    print("Error fetching vinyls: \(error)")
                 }
+
             }
             .padding()
         }
