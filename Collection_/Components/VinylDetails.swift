@@ -10,6 +10,8 @@ import Supabase
 
 struct VinylDetails: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     //    @Binding var vinyl: Vinyl
     var item: Item
     @State var vinyl: Vinyl? = nil
@@ -24,7 +26,7 @@ struct VinylDetails: View {
         GridItem(.fixed(300))
     ]
     
-   
+    
     var body: some View {
         LazyVGrid(columns: columns, spacing: 10) {
             VStack(alignment: .leading) {
@@ -52,7 +54,7 @@ struct VinylDetails: View {
                             .padding(1)
                     }
                 }
-               
+                
                 NavigationLink(destination: GenresDetails(genreId: vinyl?.genre_id ?? UUID())) {
                     if let genre {
                         Text(genre.genre_name)
@@ -67,46 +69,59 @@ struct VinylDetails: View {
                         .padding(1)
                 }
                 
+                Button {
+                    Task {
+                        do {
+                            _ = try await SupabaseService.shared.deleteItem(item.id)
+                            dismiss()
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                } label: {
+                    Text("Delete")
+                }
                 
-                    
-                    
-            
-            //                NavigationLink(destination: ArtistsDetails(artistId: vinyl.artist_id)) {
-            //                    if let artist = artist.first(where: { $0.id == vinyl.artist_id }) {
-            //                        Text(artist.artist_name)
-            //                            .font(.headline)
-            //                            .padding(1)
-            //                    }
-            //
-            //                }
-            
-            //                HStack {
-            //                    Text("Sortie :")
-            //                        .font(.headline)
-            //                    Text(vinyl.release_date.stringValue)
-            //                        .font(.headline)
-            //                }
-            //
-            //                NavigationLink(destination: GenresDetails(genreId: vinyl.genre_id)) {
-            //                    if let genre = genre.first (where: {$0.id == vinyl.genre_id}) {
-            //                        Text(genre.genre_name)
-            //                            .font(.headline)
-            //                            .padding(1)
-            //
-            //                    }
-            //                }
+                
+                
+                
+                
+                //                NavigationLink(destination: ArtistsDetails(artistId: vinyl.artist_id)) {
+                //                    if let artist = artist.first(where: { $0.id == vinyl.artist_id }) {
+                //                        Text(artist.artist_name)
+                //                            .font(.headline)
+                //                            .padding(1)
+                //                    }
+                //
+                //                }
+                
+                //                HStack {
+                //                    Text("Sortie :")
+                //                        .font(.headline)
+                //                    Text(vinyl.release_date.stringValue)
+                //                        .font(.headline)
+                //                }
+                //
+                //                NavigationLink(destination: GenresDetails(genreId: vinyl.genre_id)) {
+                //                    if let genre = genre.first (where: {$0.id == vinyl.genre_id}) {
+                //                        Text(genre.genre_name)
+                //                            .font(.headline)
+                //                            .padding(1)
+                //
+                //                    }
+                //                }
+            }
         }
-    }
-    
-    //        .task {
-    //            do {
-    //                // vinyl = try await SupabaseService.getVinyl(itemId: item.id)
-    //                let vinyls: [Vinyl] = try await supabase.database.from("vinyls").select().eq("item_id", value: item.id).execute().value
-    //                vinyl = vinyls[0]
-    //            } catch {
-    //                print(error)
-    //            }
-    //        }
+        
+        //        .task {
+        //            do {
+        //                // vinyl = try await SupabaseService.getVinyl(itemId: item.id)
+        //                let vinyls: [Vinyl] = try await supabase.database.from("vinyls").select().eq("item_id", value: item.id).execute().value
+        //                vinyl = vinyls[0]
+        //            } catch {
+        //                print(error)
+        //            }
+        //        }
         .task { // update la base de données après le rechargement de la page - next step: A modifier pour le passer en onAppear
             do {
                 if let fetchedVinyl = await SupabaseService.shared.getVinyl(itemId: item.id) {
@@ -115,6 +130,7 @@ struct VinylDetails: View {
                     artist = fetchedArtist
                     let fetchedGenre = try await SupabaseService.shared.getGenre(genreId: fetchedVinyl.genre_id)
                     genre = fetchedGenre
+                    let deleteItem = try await SupabaseService.shared.deleteItem(item.id)
                 }
             } catch {
                 print("Error fetching vinyl: \(error)")
@@ -123,14 +139,14 @@ struct VinylDetails: View {
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .navigationTitle(item.name)
-            .toolbar {
-                ToolbarItem {
-                    NavigationLink (destination: EditVinyl(itemId: item.id)) {
-                            Text("Edit")
-                        }
-                    }
+        .toolbar {
+            ToolbarItem {
+                NavigationLink (destination: EditVinyl(itemId: item.id)) {
+                    Text("Edit")
                 }
-}
+            }
+        }
+    }
 }
 
 //#Preview {

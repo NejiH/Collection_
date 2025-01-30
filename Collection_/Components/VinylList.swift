@@ -9,15 +9,15 @@ import SwiftUI
 import Supabase
 
 struct VinylList: View {
-
+    
     var collection: Collection
     @State var items: [Item] = []
-
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-
+    
     func vinylLink(item: Item) -> some View {
         NavigationLink {
             VinylDetails(
@@ -27,7 +27,7 @@ struct VinylList: View {
             VinylCell(imageUrl: item.cover_image_url ?? "https://assets.fontsinuse.com/use-media/51196/upto-700xauto/58f577f9/@2x/jpeg/C9H8-PWUIAAzbQ2-jpg-large-e.jpeg", title: item.name)
         }
     }
-
+    
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 10) {
@@ -67,7 +67,7 @@ struct VinylList: View {
 //#Preview {
 //    @State var collection = ItemCollection(id: 1, vinyls: .mock, name: "Mega Collection", color: .red)
 //    @State var items: [Item] = .mock
-//    
+//
 //    NavigationView {
 //        VinylList(collection: $collection, items: $items)
 //    }

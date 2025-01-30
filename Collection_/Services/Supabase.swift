@@ -59,6 +59,23 @@ class SupabaseService {
         return newCollection
     }
     
+    func deleteItem(_ itemId: UUID) async throws -> Item {
+        let deleted: [Item] = try await client.database
+            .from("items")
+            .delete()
+            .eq("id", value: itemId)
+            .select()
+            .execute()
+            .value
+
+        
+        guard let newItem = deleted.first else {
+            throw DatabaseError.deleteError
+        }
+        
+        return newItem
+    }
+    
     func getAllCollections() async throws -> [Collection] {
         do {
             let collections: [Collection] = try await client.database
@@ -278,6 +295,7 @@ class SupabaseService {
         case insertionFailed
         case itemNotFound
         case standardError
+        case deleteError
         
         var errorText: String {
             switch self {
@@ -289,6 +307,8 @@ class SupabaseService {
                 return "L'item n'a pas été trouvé"
             case .standardError:
                 return "Une erreur est survenue"
+            case .deleteError:
+                return "Erreur de suppression"
             }
         }
     }
