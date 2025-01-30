@@ -44,6 +44,7 @@ struct VinylDetails: View {
                     .font(.title)
                     .padding(1)
                 
+                
                 NavigationLink(destination: ArtistsDetails(artistId: vinyl?.artist_id ?? UUID())) {
                     if let artist {
                         Text(artist.artist_name)
@@ -52,11 +53,12 @@ struct VinylDetails: View {
                     }
                 }
                
-                
-                if let genre {
-                    Text(genre.genre_name)
-                        .font(.headline)
-                        .padding(1)
+                NavigationLink(destination: GenresDetails(genreId: vinyl?.genre_id ?? UUID())) {
+                    if let genre {
+                        Text(genre.genre_name)
+                            .font(.headline)
+                            .padding(1)
+                    }
                 }
                 
                 if let vinyl {
@@ -64,6 +66,7 @@ struct VinylDetails: View {
                         .font(.headline)
                         .padding(1)
                 }
+                
                 
                     
                     

@@ -45,6 +45,35 @@ class SupabaseService {
         return newVinyl
     }
     
+    func upsertCollection(_ collection: Collection) async throws -> Collection {
+        let created: [Collection] = try await client.database
+            .from("collections")
+            .upsert(collection)
+            .execute()
+            .value
+        
+        guard let newCollection = created.first else {
+            throw DatabaseError.insertionFailed
+        }
+        
+        return newCollection
+    }
+    
+    func getAllCollections() async throws -> [Collection] {
+        do {
+            let collections: [Collection] = try await client.database
+                .from("collections")
+                .select()
+                .execute()
+                .value
+            
+            return collections
+        } catch {
+            print("Error fetching collections: \(error)")
+            throw error // Relance l'erreur
+        }
+    }
+    
     func getItems(collectionId: UUID) async throws -> [Item] {
         do {
             let items: [Item] = try await client.database
@@ -153,7 +182,7 @@ class SupabaseService {
         return []
     }
     
-    func getAllVinylsFromArtist(artistId: UUID) async throws -> [Vinyl] {
+    func getAllVinylsByArtist(artistId: UUID) async throws -> [Vinyl] {
         do {
             let vinylsByArtist: [Vinyl] = try await client.database
                 .from("vinyls")
@@ -163,6 +192,22 @@ class SupabaseService {
                 .value
             
             return vinylsByArtist
+        } catch {
+            print("Error fetching vinyls: \(error)")
+            throw DatabaseError.vinylNotFound
+        }
+    }
+    
+    func getAllVinylsByGenre(genreId: UUID) async throws -> [Vinyl] {
+        do {
+            let vinylsByGenre: [Vinyl] = try await client.database
+                .from("vinyls")
+                .select()
+                .eq("genre_id", value: genreId)
+                .execute()
+                .value
+            
+            return vinylsByGenre
         } catch {
             print("Error fetching vinyls: \(error)")
             throw DatabaseError.vinylNotFound

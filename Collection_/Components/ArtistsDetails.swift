@@ -60,7 +60,7 @@ struct ArtistsDetails: View {
             }
             .task {
                 do {
-                    let vinyl_list = try await SupabaseService.shared.getAllVinylsFromArtist(artistId: artistId)
+                    let vinyl_list = try await SupabaseService.shared.getAllVinylsByArtist(artistId: artistId)
                     for vinyl in vinyl_list {
                         let item = await SupabaseService.shared.getItem(itemId: vinyl.item_id)
                         if let item {

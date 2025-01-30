@@ -16,18 +16,20 @@ struct CollectionDetail: View {
     var body: some View {
         HStack {
             if items.isEmpty {
-                VStack {
-                    Image(systemName: "photo")
-                        .resizable()
-                        .frame(width: 100, height: 100)
-                        .background(Color.tileBackground)
-                        .cornerRadius(10)
-                    
-                    Text(collection.name)
-                        .font(.headline)
-                        .foregroundStyle(.gray)
-                        .lineLimit(1)
+                NavigationLink (destination: AddItem(name: "", description: "", cover_image_url: "", collection_id: collection.id)) {
+                    VStack {
+                        Image(systemName: "plus.app.fill")
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .cornerRadius(10)
+                        
+                        Text(collection.name)
+                            .font(.headline)
+                            .foregroundStyle(.gray)
+                            .lineLimit(1)
+                    }
                 }
+                
             } else {
                 NavigationLink(destination: VinylList(collection: collection)) {
                     VStack {
@@ -60,7 +62,6 @@ struct CollectionDetail: View {
                 print(error)
             }
         }
-        
     }
 }
 //#Preview {
