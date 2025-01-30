@@ -24,19 +24,22 @@ struct CollectionList: View {
                     CollectionDetail(collection: collection)
                 }
                 
-                HStack {
-                    VStack {
-                        Image(systemName: "plus.app")
-                            .resizable()
-                            .frame(width: 100, height: 100)
-                            .cornerRadius(10)
-                        
-                        Text("Nouvelle collection")
-                            .font(.headline)
-                            .foregroundStyle(.gray)
-                            .lineLimit(1)
+                NavigationLink (destination: AddCollection()) {
+                    HStack {
+                        VStack {
+                            Image(systemName: "plus.app")
+                                .resizable()
+                                .frame(width: 100, height: 100)
+                                .cornerRadius(10)
+                            
+                            Text("Nouvelle collection")
+                                .font(.headline)
+                                .foregroundStyle(.gray)
+                                .lineLimit(1)
+                        }
                     }
                 }
+                
             }
             .padding()
         }

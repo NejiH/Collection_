@@ -31,6 +31,20 @@ class SupabaseService {
         return newItem
     }
     
+    func upsertCollection(_ collection: Collection) async throws -> Collection {
+        let created: [Collection] = try await client.database
+            .from("collections")
+            .upsert(collection)
+            .execute()
+            .value
+        
+        guard let newCollection = created.first else {
+            throw DatabaseError.insertionFailed
+        }
+        
+        return newCollection
+    }
+    
     func upsertVinyl(_ vinyl: Vinyl) async throws -> Vinyl {
         let created: [Vinyl] = try await client.database
             .from("vinyls")
@@ -45,19 +59,6 @@ class SupabaseService {
         return newVinyl
     }
     
-    func upsertCollection(_ collection: Collection) async throws -> Collection {
-        let created: [Collection] = try await client.database
-            .from("collections")
-            .upsert(collection)
-            .execute()
-            .value
-        
-        guard let newCollection = created.first else {
-            throw DatabaseError.insertionFailed
-        }
-        
-        return newCollection
-    }
     
     func deleteItem(_ itemId: UUID) async throws -> Item {
         let deleted: [Item] = try await client.database
@@ -296,6 +297,7 @@ class SupabaseService {
         case itemNotFound
         case standardError
         case deleteError
+        case collectionCreationFailed
         
         var errorText: String {
             switch self {
@@ -309,6 +311,8 @@ class SupabaseService {
                 return "Une erreur est survenue"
             case .deleteError:
                 return "Erreur de suppression"
+            case .collectionCreationFailed:
+                return "La création de la collection a échouée"
             }
         }
     }
