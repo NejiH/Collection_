@@ -11,8 +11,7 @@ struct CollectionList: View {
     
     @State private var isEditing: Bool = false
     @State var collections: [Collection]
-    @State private var collectionToDelete: Collection?
-    @State private var showDeleteConfirmation = false
+    
 
     
     @Environment(\.dismiss) var dismiss
