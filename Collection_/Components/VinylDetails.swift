@@ -89,55 +89,17 @@ struct VinylDetails: View {
                         }
                     }
                 } label: {
-                    Text("Delete")
+                    Text("Supprimer")
                 }
                 
-                
-                
-                
-                
-                //                NavigationLink(destination: ArtistsDetails(artistId: vinyl.artist_id)) {
-                //                    if let artist = artist.first(where: { $0.id == vinyl.artist_id }) {
-                //                        Text(artist.artist_name)
-                //                            .font(.headline)
-                //                            .padding(1)
-                //                    }
-                //
-                //                }
-                
-                //                HStack {
-                //                    Text("Sortie :")
-                //                        .font(.headline)
-                //                    Text(vinyl.release_date.stringValue)
-                //                        .font(.headline)
-                //                }
-                //
-                //                NavigationLink(destination: GenresDetails(genreId: vinyl.genre_id)) {
-                //                    if let genre = genre.first (where: {$0.id == vinyl.genre_id}) {
-                //                        Text(genre.genre_name)
-                //                            .font(.headline)
-                //                            .padding(1)
-                //
-                //                    }
-                //                }
             }
         }
-        
-        //        .task {
-        //            do {
-        //                // vinyl = try await SupabaseService.getVinyl(itemId: item.id)
-        //                let vinyls: [Vinyl] = try await supabase.database.from("vinyls").select().eq("item_id", value: item.id).execute().value
-        //                vinyl = vinyls[0]
-        //            } catch {
-        //                print(error)
-        //            }
-        //        }
         .onAppear {
-            fetchVinylDetails() //
+            fetchVinylDetails()
         }
         .onChange(of: updateTrigger, initial: false) { _,_  in
-                fetchVinylDetails()
-            }
+            fetchVinylDetails()
+        }
         
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

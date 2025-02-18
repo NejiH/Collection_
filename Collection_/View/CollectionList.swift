@@ -9,12 +9,11 @@ import SwiftUI
 
 struct CollectionList: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     @State private var isEditing: Bool = false
     @State var collections: [Collection]
-    
 
-    
-    @Environment(\.dismiss) var dismiss
     
     let columns = [
         GridItem(.flexible()),
@@ -41,7 +40,7 @@ struct CollectionList: View {
                                     }
                                 }
                             } label: {
-                                Text("Delete")
+                                Text("Supprimer")
                             }
                         }
                     }
@@ -69,7 +68,7 @@ struct CollectionList: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(isEditing ? "Terminer" : "Éditer") {
-                    isEditing.toggle() 
+                    isEditing.toggle()
                 }
             }
         }
