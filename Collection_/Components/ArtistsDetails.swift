@@ -81,6 +81,9 @@ struct ArtistsDetails: View {
     }
 }
 
-//#Preview {
-//    ArtistsDetails(artistId: <#T##UUID#>)
-//}
+#Preview {
+    NavigationStack {
+           ArtistsDetails(artistId: UUID())
+       }
+       
+}
