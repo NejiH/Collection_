@@ -16,7 +16,7 @@ struct CollectionDetail: View {
     var body: some View {
         HStack {
             if items.isEmpty {
-                NavigationLink (destination: AddItem(name: "", description: "", cover_image_url: "", collection_id: collection.id)) {
+                NavigationLink (destination: AddItem(name: "", description: "", cover_image_url: "", collection_id: UUID(), barcode: 123456, release_date: .now, created_at: .now, updated_at: .now, genre_id: UUID(), artist_id: UUID(), item_id: UUID())) {
                     VStack {
                         Image(systemName: "plus.app.fill")
                             .resizable()

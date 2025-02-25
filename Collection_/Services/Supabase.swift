@@ -59,6 +59,34 @@ class SupabaseService {
         return newVinyl
     }
     
+    func upsertArtist(_ artist: Artist) async throws -> Artist {
+        let created: [Artist] = try await client.database
+            .from("artists")
+            .upsert(artist)
+            .execute()
+            .value
+        
+        guard let newArtist = created.first else {
+            throw DatabaseError.insertionFailed
+        }
+        
+        return newArtist
+    }
+    
+    func upsertGenre(_ genre: Genre) async throws -> Genre {
+        let created: [Genre] = try await client.database
+            .from("genres")
+            .upsert(genre)
+            .execute()
+            .value
+        
+        guard let newGenre = created.first else {
+            throw DatabaseError.insertionFailed
+        }
+        
+        return newGenre
+    }
+    
     func deleteCollection(_ collectionId: UUID) async throws -> Collection {
         let deleted: [Collection] = try await client.database
             .from("collections")

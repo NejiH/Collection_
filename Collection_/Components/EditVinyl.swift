@@ -18,7 +18,7 @@ struct EditVinyl: View {
     @Binding var updateTrigger: UUID
     
     @State var vinyl: Vinyl = Vinyl(id: UUID(), barcode: 0, release_date: .now, created_at: .now, updated_at: nil, genre_id: UUID(), artist_id: UUID(), item_id: UUID())
-    @State var item: Item = Item(id: UUID(), name: "", description: "", cover_image_url: nil, created_at: "", updated_at: nil, collection_id: UUID())
+    @State var item: Item = Item(id: UUID(), name: "", description: "", cover_image_url: nil, created_at: "", updated_at: "", collection_id: UUID())
     
     let itemId: UUID?
     
@@ -124,10 +124,12 @@ struct EditVinyl: View {
 }
 
 
-//#Preview("Add") {
-//  EditVinyl(collectionID: 42)
-//}
-//
-//#Preview("Edit") {
-//  EditVinyl(collectionID: 44, vinyl: .mock)
-//}
+#Preview {
+    @Previewable @State var updateTrigger = UUID()
+       
+       let testItemId = UUID()
+       
+       return NavigationStack {
+           EditVinyl(updateTrigger: .constant(updateTrigger), itemId: testItemId)
+       }
+}

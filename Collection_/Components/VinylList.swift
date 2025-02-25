@@ -47,7 +47,7 @@ struct VinylList: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink {
-                    AddItem(name: "", description: "", cover_image_url: "", collection_id: collection.id)
+                    AddItem(name: "", description: "", cover_image_url: "", collection_id: UUID(), barcode: 123456, release_date: .now, created_at: .now, updated_at: .now, genre_id: UUID(), artist_id: UUID(), item_id: UUID())
                 } label: {
                     Text("Add")
                 }
@@ -67,11 +67,33 @@ struct VinylList: View {
 }
 
 
-//#Preview {
-//    @State var collection = ItemCollection(id: 1, vinyls: .mock, name: "Mega Collection", color: .red)
-//    @State var items: [Item] = .mock
-//
-//    NavigationView {
-//        VinylList(collection: $collection, items: $items)
-//    }
-//}
+#Preview {
+    @Previewable @State var sampleCollection = Collection(
+        id: UUID(),
+        name: "Ma Collection",
+        created_at: "10-12-2022",
+        updated_at: "10-12-2022"
+    )
+    
+    @Previewable @State var sampleItems = [
+        Item(
+            id: UUID(),
+             name: "Sample Vinyl 1",
+             description: "Test Vinyl 1",
+             cover_image_url: "https://via.placeholder.com/300",
+             created_at: "10-12-202",
+             updated_at: "11-11-2021",
+             collection_id: UUID()),
+        Item(id: UUID(),
+             name: "Sample Vinyl 2",
+             description: "Test Vinyl 2",
+             cover_image_url: "https://via.placeholder.com/300",
+             created_at: "10-12-202",
+             updated_at: "11-11-2021",
+             collection_id: UUID())
+    ]
+    
+    return NavigationStack {
+        VinylList(collection: sampleCollection, items: sampleItems)
+    }
+}

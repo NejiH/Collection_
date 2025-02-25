@@ -26,5 +26,4 @@ struct Item: Codable, Identifiable {
         self.updated_at = updated_at
         self.collection_id = collection_id
     }
-    
 }

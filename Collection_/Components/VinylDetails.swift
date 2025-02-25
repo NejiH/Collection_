@@ -114,15 +114,45 @@ struct VinylDetails: View {
     }
 }
 
-//#Preview {
-//    NavigationView {
-//        VinylDetails(vinyl: .mock)
-//    }
-//}
+#Preview {
+    let sampleGenre = Genre(
+        id: UUID(),
+        genre_name: "Punk Rock",
+        created_at: "10-12-202",
+        updated_at: "11-11-2021"
+    )
+    
+    let sampleItem = Item(
+        id: UUID(),
+        name: "Sample Vinyl",
+        description: "Test Vinyl",
+        cover_image_url: "https://via.placeholder.com/300",
+        created_at: "10-12-202",
+        updated_at: "11-11-2021",
+        collection_id: UUID()
+    )
+    
+    let sampleArtist = Artist(
+        id: UUID(),
+        artist_name: "NOFX",
+        created_at: "10-12-202",
+        updated_at: "11-11-2021",
+        genre_id: sampleGenre.id
+    )
+    
+    let sampleVinyl = Vinyl(
+        id: UUID(),
+        barcode: 123456,
+        release_date: .now,
+        created_at: .now,
+        updated_at: .now,
+        genre_id: sampleGenre.id,
+        artist_id: sampleArtist.id,
+        item_id: sampleItem.id
+    )
+    
+    return NavigationView {
+        VinylDetails(item: sampleItem, vinyl: sampleVinyl, artist:sampleArtist, genre: sampleGenre)
+    }
+}
 
-// Afficher la cover du vinyl en aut en centré
-// En dessous :
-// . Nom de l'album
-// . Nom de l'artiste
-// . Date de sortie de l'album
-// . Genre de l'album

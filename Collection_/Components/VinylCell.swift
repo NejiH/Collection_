@@ -30,26 +30,10 @@ struct VinylCell: View {
     }
 }
 
-//#Preview {
-//    VinylCell(
-//            vinyl: Vinyl(
-//                id: UUID(),
-//                barcode: 123456789,
-//                cover_image_url: "https://example.com/cover.jpg",
-//                release_date: Date(),
-//                created_at: Date(),
-//                updated_at: nil,
-//                genre_id: UUID(),
-//                artist_id: UUID(),
-//                item_id: UUID()
-//            ),
-//            item: Item(
-//                id: UUID(),
-//                name: "Album Example",
-//                description: "Description de l'album",
-//                cover_image_url: nil,
-//                created_at: 0,
-//                updated_at: 0,
-//                collection_id: UUID()
-//            )
-//        )}
+#Preview(traits: .sizeThatFitsLayout) {
+    VinylCell(
+        imageUrl: "https://via.placeholder.com/100",
+        title: "Sample Vinyl"
+    )
+    .padding()
+}
