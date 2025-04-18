@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-struct GenresDetails: View {
-    
-    struct ListByGenre: Identifiable {
-        let item: Item
-        let vinyl: Vinyl
-        var id: UUID {
-            item.id
-        }
+struct ListByGenre: Identifiable {
+    let item: Item
+    let vinyl: Vinyl
+    var id: UUID {
+        item.id
     }
+}
+
+struct GenresDetails: View {
     
     @State var genreName: String = ""
     @State var genreList: [ListByGenre] = []
@@ -74,56 +74,56 @@ struct GenresDetails: View {
         }
     }
 }
-//#Preview {
-//    let sampleGenreId = UUID()
-//
-//    let sampleItems = [
-//        Item(
-//            id: UUID(),
-//            name: "Sample Vinyl 1",
-//            description: "Test Vinyl 1",
-//            cover_image_url: "https://via.placeholder.com/300",
-//            created_at: "10-12-202",
-//            updated_at: "11-11-2021",
-//            collection_id: UUID()
-//        ),
-//        Item(
-//            id: UUID(),
-//            name: "Sample Vinyl 2",
-//            description: "Test Vinyl 2",
-//            cover_image_url: "https://via.placeholder.com/300",
-//            created_at: "10-12-202",
-//            updated_at: "11-11-2021",
-//            collection_id: UUID()
-//        )
-//    ]
-//    
-//    let sampleVinyls = [
-//        Vinyl(
-//            id: UUID(),
-//            barcode: 123456,
-//            release_date: .now,
-//            created_at: .now,
-//            updated_at: .now,
-//            genre_id: UUID(),
-//            artist_id: UUID(),
-//            item_id: sampleItems[0].id
-//        ),
-//        Vinyl(
-//            id: UUID(),
-//            barcode: 123456,
-//            release_date: .now,
-//            created_at: .now,
-//            updated_at: .now,
-//            genre_id: UUID(),
-//            artist_id: UUID(),
-//            item_id: sampleItems[1].id
-//        )
-//    ]
-//    
-//    let sampleListByGenre = zip(sampleItems, sampleVinyls).map { ListByGenre(item: $0, vinyl: $1) }
-//    
-//    NavigationStack {
-//        GenresDetails(genreName: "Rock", genreList: sampleListByGenre, genreId: sampleGenreId)
-//    }
-//}
+#Preview {
+    let sampleGenreId = UUID()
+
+    let sampleItems = [
+        Item(
+            id: UUID(),
+            name: "Sample Vinyl 1",
+            description: "Test Vinyl 1",
+            cover_image_url: "https://via.placeholder.com/300",
+            created_at: "10-12-202",
+            updated_at: "11-11-2021",
+            collection_id: UUID()
+        ),
+        Item(
+            id: UUID(),
+            name: "Sample Vinyl 2",
+            description: "Test Vinyl 2",
+            cover_image_url: "https://via.placeholder.com/300",
+            created_at: "10-12-202",
+            updated_at: "11-11-2021",
+            collection_id: UUID()
+        )
+    ]
+    
+    let sampleVinyls = [
+        Vinyl(
+            id: UUID(),
+            barcode: 123456,
+            release_date: .now,
+            created_at: .now,
+            updated_at: .now,
+            genre_id: UUID(),
+            artist_id: UUID(),
+            item_id: sampleItems[0].id
+        ),
+        Vinyl(
+            id: UUID(),
+            barcode: 123456,
+            release_date: .now,
+            created_at: .now,
+            updated_at: .now,
+            genre_id: UUID(),
+            artist_id: UUID(),
+            item_id: sampleItems[1].id
+        )
+    ]
+    
+    let sampleListByGenre = zip(sampleItems, sampleVinyls).map { ListByGenre(item: $0, vinyl: $1) }
+    
+    NavigationStack {
+        GenresDetails(genreName: "Rock", genreList: sampleListByGenre, genreId: sampleGenreId)
+    }
+}

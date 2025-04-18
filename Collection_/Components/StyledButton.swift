@@ -76,8 +76,5 @@ struct StyledGenericButton: View {
         StyledGenericButton(type: .text(value: "Ajouter une collection"))
     }
 }
-// - appropriation de l'env (orga, fichier, nommage...)
-// - découpage composants (bouttons, collections cells, champs...)
-// - écran coordinateur qui mene vers tous tes autres écrans de manière à pouvoir développer des écrans indépendants de leur logique => Focus UI
-// - développer la navigation et la logique des écrans (view models, appels API, base de donnée) par écran
+
 

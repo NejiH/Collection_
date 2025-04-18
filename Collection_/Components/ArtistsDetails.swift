@@ -80,10 +80,9 @@ struct ArtistsDetails: View {
         .navigationTitle(artistName)
     }
 }
-
 #Preview {
+    let previewArtistId = UUID(uuidString: "1a152cd4-35f3-412f-b1c2-b44ff23553bc")!
     NavigationStack {
-           ArtistsDetails(artistId: UUID())
-       }
-       
+        ArtistsDetails(artistId: previewArtistId)
+    }
 }

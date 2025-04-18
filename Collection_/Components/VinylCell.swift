@@ -12,23 +12,41 @@ struct VinylCell: View {
     let title: String
     
     var body: some View {
+
         VStack {
-            AsyncImage(url: URL(string: imageUrl)) { image in
-                image.resizable()
-            } placeholder: {
-                ProgressView()
-            }
-            .frame(width: 100, height: 100)
-            .background(Color.tileBackground)
-            .cornerRadius(10)
-            
+            ZStack (alignment: .top){
+                Image("disc-vinyl")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 150, height: 100)
+                                .padding(.leading, 30)
+                                
+                    AsyncImage(url: URL(string: imageUrl)) { image in
+                        image.resizable()
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: 100, height: 100)
+                    .background(Color.tileBackground)
+                    .clipShape(
+                        .rect(
+                            topLeadingRadius: 10,
+                            bottomLeadingRadius: 10,
+                            bottomTrailingRadius: 0,
+                            topTrailingRadius: 0
+                        )
+                    )
+                   
+                }
+                .frame(maxWidth: .infinity) // < Pour aligner les éléments tout à gauche
             Text(title)
                 .font(.headline)
                 .foregroundStyle(.black)
                 .lineLimit(1)
+                }
         }
     }
-}
+
 
 #Preview(traits: .sizeThatFitsLayout) {
     VinylCell(

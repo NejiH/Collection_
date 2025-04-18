@@ -78,7 +78,7 @@ struct VinylDetails: View {
                         .font(.headline)
                         .padding(1)
                 }
-                
+        
                 Button {
                     Task {
                         do {
@@ -91,7 +91,6 @@ struct VinylDetails: View {
                 } label: {
                     Text("Supprimer")
                 }
-                
             }
         }
         .onAppear {

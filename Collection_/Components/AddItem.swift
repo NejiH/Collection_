@@ -23,7 +23,7 @@ struct AddItem: View {
     @State var genre_id: UUID
     @State var artist_id: UUID?
     @State var item_id: UUID = UUID()
-    @State var artist_name: String = "" 
+    @State var artist_name: String = ""
     @State var genre_name: String = ""
     
     @State var fetchCollections: [Collection] = []
@@ -60,7 +60,7 @@ struct AddItem: View {
                             .textFieldStyle(.roundedBorder)
                         
                         DatePicker("Release Date", selection: $release_date, displayedComponents: .date)
-                            .datePickerStyle(CompactDatePickerStyle()) 
+                            .datePickerStyle(CompactDatePickerStyle())
                         
                         HStack {
                             
